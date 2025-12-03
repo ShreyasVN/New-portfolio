@@ -137,49 +137,89 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    transform-style: preserve-3d;
-    perspective: 1000px;
+    gap: 40px;
 }
 
-.loader-3d {
-    width: 200px;
-    height: 200px;
+.quantum-loader {
     position: relative;
-    transform-style: preserve-3d;
-    animation: rotate3d 3s infinite linear;
-    margin: 0 auto;
+    width: 400px;
+    height: 400px;
 }
 
-@keyframes rotate3d {
-    0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
-    100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-}
-
-.loader-face {
+.quantum-node {
     position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--primary);
+}
+
+.quantum-ring {
+    position: absolute;
+    border: 2px solid var(--secondary);
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.quantum-ring-1 {
     width: 200px;
     height: 200px;
-    border: 2px solid var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--primary);
-    font-family: 'JetBrains Mono', monospace;
-    background: rgba(0, 255, 136, 0.05);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: quantumRotate1 4s linear infinite;
 }
 
-.loader-face:nth-child(1) { transform: translateZ(100px); }
-.loader-face:nth-child(2) { transform: rotateY(90deg) translateZ(100px); }
-.loader-face:nth-child(3) { transform: rotateY(180deg) translateZ(100px); }
-.loader-face:nth-child(4) { transform: rotateY(-90deg) translateZ(100px); }
-.loader-face:nth-child(5) { transform: rotateX(90deg) translateZ(100px); }
-.loader-face:nth-child(6) { transform: rotateX(-90deg) translateZ(100px); }
+.quantum-ring-2 {
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: quantumRotate2 6s linear infinite reverse;
+}
+
+.quantum-ring-3 {
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: quantumRotate3 2s linear infinite;
+}
+
+@keyframes quantumRotate1 {
+    0% { transform: translate(-50%, -50%) rotateZ(0deg); }
+    100% { transform: translate(-50%, -50%) rotateZ(360deg); }
+}
+
+@keyframes quantumRotate2 {
+    0% { transform: translate(-50%, -50%) rotateY(0deg) rotateX(60deg); }
+    100% { transform: translate(-50%, -50%) rotateY(360deg) rotateX(60deg); }
+}
+
+@keyframes quantumRotate3 {
+    0% { transform: translate(-50%, -50%) rotateX(0deg) rotateY(60deg); }
+    100% { transform: translate(-50%, -50%) rotateX(360deg) rotateY(60deg); }
+}
+
+.quantum-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: quantumFloat 3s ease-in-out infinite;
+}
+
+@keyframes quantumFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-20px) scale(1.5); opacity: 1; }
+}
 
 .loader-text {
-    margin-top: 50px;
+    margin-top: 20px;
     font-family: 'JetBrains Mono', monospace;
     color: var(--text-secondary);
     font-size: 1.2rem;
@@ -190,14 +230,14 @@
     width: 300px;
     height: 4px;
     background: var(--border);
-    margin: 30px auto;
+    margin: 20px auto;
     overflow: hidden;
     border-radius: 2px;
 }
 
 .loader-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
     animation: loadProgress 2s ease-out;
     border-radius: 2px;
 }
@@ -206,7 +246,6 @@
     from { width: 0; }
     to { width: 100%; }
 }
-
         /* Theme Toggle */
         .theme-toggle {
             position: fixed;
@@ -1540,18 +1579,22 @@
     <!-- Loading Screen -->
 <div class="loader-wrapper" id="loader">
     <div class="loader-content">
-        <div class="loader-3d">
-            <div class="loader-face">SN</div>
-            <div class="loader-face">SN</div>
-            <div class="loader-face">SN</div>
-            <div class="loader-face">SN</div>
-            <div class="loader-face">SN</div>
-            <div class="loader-face">SN</div>
+        <div class="quantum-loader">
+            <div class="quantum-ring quantum-ring-1"></div>
+            <div class="quantum-ring quantum-ring-2"></div>
+            <div class="quantum-ring quantum-ring-3"></div>
+            <div class="quantum-node" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+            <div class="quantum-particle" style="top: 30%; left: 20%; animation-delay: 0s;"></div>
+            <div class="quantum-particle" style="top: 70%; left: 80%; animation-delay: 0.5s;"></div>
+            <div class="quantum-particle" style="top: 20%; left: 70%; animation-delay: 1s;"></div>
+            <div class="quantum-particle" style="top: 80%; left: 30%; animation-delay: 1.5s;"></div>
+            <div class="quantum-particle" style="top: 50%; left: 10%; animation-delay: 2s;"></div>
+            <div class="quantum-particle" style="top: 50%; left: 90%; animation-delay: 2.5s;"></div>
         </div>
         <div class="loader-progress">
             <div class="loader-progress-bar"></div>
         </div>
-        <div class="loader-text">Initializing 3D DevOps Pipeline...</div>
+        <div class="loader-text">Initializing Quantum Neural Network...</div>
     </div>
 </div>
 
