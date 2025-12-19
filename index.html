@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shreyas Neelaraddi | AI/ML & DevOps Engineer</title>
-    <meta name="description" content="AI/ML and DevOps Engineer specializing in cloud infrastructure, CI/CD automation, and machine learning solutions. Expert in Python, Docker, Kubernetes, Terraform, and AWS deployments.">
+    <meta name="description" content="AI/ML and DevOps Engineer specializing in Python, Docker, Kubernetes, Terraform, and AWS. Building scalable AI solutions and robust DevOps pipelines.">
     <meta name="keywords" content="AI/ML Engineer, DevOps, Python, Docker, Kubernetes, Terraform, AWS, CI/CD, Machine Learning, Cloud Engineering">
     <meta name="author" content="Shreyas Neelaraddi">
-    <meta property="og:title" content="Shreyas Neelaraddi | AI/ML & DevOps Engineer">
-    <meta property="og:description" content="Building scalable AI solutions and robust DevOps pipelines | AI/ML & DevOps Engineer">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://shreyasneelaraddi.github.io">
-    <meta property="og:image" content="https://shreyasneelaraddi.github.io/images/og-image.png">
+    
+    <!-- GitHub Pages Optimization -->
+    <link rel="canonical" href="https://shreyasneelaraddi.github.io/">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -108,7 +106,7 @@
             background: var(--primary);
         }
 
-        /* Optimized Loading Screen - Faster */
+        /* Industry-Ready DevOps Loading Screen */
         .loader-wrapper {
             position: fixed;
             top: 0;
@@ -120,7 +118,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
             min-height: 100vh;
         }
 
@@ -134,106 +132,126 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
         }
 
-        .quantum-loader {
+        /* Unique DevOps Pipeline Loading Animation */
+        .pipeline-loader {
             position: relative;
-            width: 200px;
+            width: 300px;
             height: 200px;
-            transform-style: preserve-3d;
         }
 
-        .quantum-node {
+        .pipeline-stage {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-stage.active {
+            background: var(--primary);
+            color: var(--bg-primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--primary);
+        }
+
+        .stage-1 { top: 0; left: 0; animation: stageGlow 1.5s infinite; }
+        .stage-2 { top: 0; left: 60px; animation: stageGlow 1.5s infinite 0.3s; }
+        .stage-3 { top: 0; left: 120px; animation: stageGlow 1.5s infinite 0.6s; }
+        .stage-4 { top: 0; left: 180px; animation: stageGlow 1.5s infinite 0.9s; }
+        .stage-5 { top: 0; left: 240px; animation: stageGlow 1.5s infinite 1.2s; }
+
+        @keyframes stageGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .pipeline-connector {
+            position: absolute;
+            top: 30px;
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+            opacity: 0.3;
+        }
+
+        .connector-1 { left: 55px; }
+        .connector-2 { left: 115px; }
+        .connector-3 { left: 175px; }
+        .connector-4 { left: 235px; }
+
+        .pipeline-flow {
+            position: absolute;
+            width: 6px;
+            height: 6px;
             background: var(--primary);
             border-radius: 50%;
-            box-shadow: 0 0 15px var(--primary);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--primary);
+            animation: flowAnimation 3s infinite;
         }
 
-        .quantum-ring {
-            position: absolute;
-            border: 2px solid var(--secondary);
-            border-radius: 50%;
-            opacity: 0.6;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .quantum-ring-1 {
-            width: 100px;
-            height: 100px;
-            animation: quantumRotate1 3s linear infinite;
-        }
-
-        .quantum-ring-2 {
-            width: 150px;
-            height: 150px;
-            animation: quantumRotate2 4s linear infinite reverse;
-        }
-
-        .quantum-ring-3 {
-            width: 70px;
-            height: 70px;
-            animation: quantumRotate3 2s linear infinite;
-        }
-
-        @keyframes quantumRotate1 {
-            0% { transform: translate(-50%, -50%) rotateZ(0deg); }
-            100% { transform: translate(-50%, -50%) rotateZ(360deg); }
-        }
-
-        @keyframes quantumRotate2 {
-            0% { transform: translate(-50%, -50%) rotateY(0deg) rotateX(60deg); }
-            100% { transform: translate(-50%, -50%) rotateY(360deg) rotateX(60deg); }
-        }
-
-        @keyframes quantumRotate3 {
-            0% { transform: translate(-50%, -50%) rotateX(0deg) rotateY(60deg); }
-            100% { transform: translate(-50%, -50%) rotateX(360deg) rotateY(60deg); }
-        }
-
-        .quantum-particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: quantumFloat 2.5s ease-in-out infinite;
-        }
-
-        @keyframes quantumFloat {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
-            50% { transform: translateY(-15px) scale(1.5); opacity: 1; }
+        @keyframes flowAnimation {
+            0% { left: 30px; top: 60px; opacity: 0; }
+            10% { opacity: 1; }
+            20% { left: 90px; top: 30px; }
+            40% { left: 150px; top: 30px; }
+            60% { left: 210px; top: 30px; }
+            80% { left: 270px; top: 30px; }
+            90% { opacity: 1; }
+            100% { left: 270px; top: 120px; opacity: 0; }
         }
 
         .loader-text {
             font-family: 'Fira Code', monospace;
             color: var(--text-secondary);
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .loader-progress {
-            width: 200px;
-            height: 3px;
+            width: 300px;
+            height: 4px;
             background: var(--border);
-            margin: 15px auto;
             overflow: hidden;
             border-radius: 2px;
+            position: relative;
         }
 
         .loader-progress-bar {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            animation: loadProgress 1s ease-out;
+            animation: loadProgress 2s ease-out;
             border-radius: 2px;
+            position: relative;
+        }
+
+        .loader-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 100%;
+            background: white;
+            opacity: 0.8;
+            filter: blur(2px);
+            animation: shimmer 1s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(300px); }
         }
 
         @keyframes loadProgress {
@@ -591,7 +609,7 @@
             box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
         }
 
-        /* Industry Stats Section */
+        /* Industry Stats Section - 3x2 Grid */
         .industry-stats {
             padding: 80px 5%;
             background: var(--bg-secondary);
@@ -614,7 +632,8 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             gap: 40px;
             position: relative;
             z-index: 2;
@@ -627,6 +646,24 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
         .stat-card:hover {
@@ -1822,6 +1859,10 @@
                 padding: 20px;
                 margin: 20px;
             }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 480px) {
@@ -1833,6 +1874,77 @@
             .section-title-3d { font-size: 2.5rem; }
             .stats-container { grid-template-columns: 1fr; }
         }
+
+        /* Additional Animations */
+        .floating-badge {
+            position: fixed;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            padding: 8px 16px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .badge-top-right {
+            top: 100px;
+            right: -100px;
+            animation: slideInRight 1s ease forwards;
+        }
+
+        .badge-top-right.show {
+            right: 20px;
+        }
+
+        .badge-bottom-left {
+            bottom: 100px;
+            left: -100px;
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        .badge-bottom-left.show {
+            left: 20px;
+        }
+
+        @keyframes slideInRight {
+            to { right: 20px; }
+        }
+
+        @keyframes slideInLeft {
+            to { left: 20px; }
+        }
+
+        /* GitHub Pages Optimization */
+        .github-ribbon {
+            position: fixed;
+            top: 0;
+            right: 0;
+            border: 0;
+            z-index: 9999;
+        }
+
+        .github-ribbon img {
+            border: 0;
+        }
+
+        /* Smooth scroll behavior for all browsers */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1840,32 +1952,51 @@
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
+    <!-- GitHub Pages Fork Ribbon -->
+    <a href="https://github.com/shreyasneelaraddi/shreyasneelaraddi.github.io" class="github-ribbon">
+        <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" alt="Fork me on GitHub">
+    </a>
+
     <!-- Scroll Progress -->
     <div class="scroll-progress-3d">
         <div class="scroll-progress-bar-3d" id="scrollProgress"></div>
     </div>
 
-    <!-- Loading Screen - Optimized for Speed -->
+    <!-- Industry-Ready DevOps Loading Screen -->
     <div class="loader-wrapper" id="loader">
         <div class="loader-content">
-            <div class="quantum-loader">
-                <div class="quantum-ring quantum-ring-1"></div>
-                <div class="quantum-ring quantum-ring-2"></div>
-                <div class="quantum-ring quantum-ring-3"></div>
-                <div class="quantum-node"></div>
-                <div class="quantum-particle" style="top: 30%; left: 20%; animation-delay: 0s;"></div>
-                <div class="quantum-particle" style="top: 70%; left: 80%; animation-delay: 0.5s;"></div>
-                <div class="quantum-particle" style="top: 20%; left: 70%; animation-delay: 1s;"></div>
-                <div class="quantum-particle" style="top: 80%; left: 30%; animation-delay: 1.5s;"></div>
-                <div class="quantum-particle" style="top: 50%; left: 10%; animation-delay: 2s;"></div>
-                <div class="quantum-particle" style="top: 50%; left: 90%; animation-delay: 2.5s;"></div>
+            <div class="pipeline-loader">
+                <div class="pipeline-stage stage-1" title="Code">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="pipeline-connector connector-1"></div>
+                <div class="pipeline-stage stage-2" title="Build">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <div class="pipeline-connector connector-2"></div>
+                <div class="pipeline-stage stage-3" title="Test">
+                    <i class="fas fa-vial"></i>
+                </div>
+                <div class="pipeline-connector connector-3"></div>
+                <div class="pipeline-stage stage-4" title="Deploy">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="pipeline-connector connector-4"></div>
+                <div class="pipeline-stage stage-5" title="Monitor">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="pipeline-flow"></div>
             </div>
+            <div class="loader-text">Initializing DevOps Pipeline...</div>
             <div class="loader-progress">
                 <div class="loader-progress-bar"></div>
             </div>
-            <div class="loader-text">Initializing DevOps Pipeline...</div>
         </div>
     </div>
+
+    <!-- Floating Badges -->
+    <div class="floating-badge badge-top-right" id="fresherBadge">🚀 Fresher Talent</div>
+    <div class="floating-badge badge-bottom-left" id="aiBadge">🤖 AI/ML Expert</div>
 
     <!-- Theme Toggle -->
     <div class="theme-toggle" id="themeToggle">
@@ -1904,8 +2035,8 @@
         <div class="hero-container">
             <div class="hero-profile-3d">
                 <div class="profile-image-wrapper-3d">
-                    <!-- Fixed profile image path -->
-                    <img src="images/Shreyas N.png" alt="Shreyas Neelaraddi" class="profile-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <!-- Fixed profile image path for GitHub Pages -->
+                    <img src="images/Shreyas%20N.png" alt="Shreyas Neelaraddi" class="profile-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="image-placeholder-3d" style="display: none;">
                         <i class="fas fa-user" style="font-size: 6rem; margin-bottom: 20px;"></i>
                         <div>Profile Photo</div>
@@ -1936,28 +2067,39 @@
         </div>
     </section>
 
-    <!-- Industry Stats Section -->
+    <!-- Industry Stats Section - 3x2 Grid -->
     <section class="industry-stats" id="stats">
         <div class="section-header-3d fade-in-3d">
             <h2 class="section-title-3d">Industry Impact</h2>
             <p class="section-subtitle-3d">Metrics that matter</p>
         </div>
         <div class="stats-container">
+            <!-- Top Row -->
             <div class="stat-card fade-in-3d">
                 <div class="stat-number" data-target="93">0</div>
-                <div class="stat-label">ML Model Accuracy</div>
+                <div class="stat-label">ML Model Accuracy (%)</div>
             </div>
             <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="100">0</div>
-                <div class="stat-label">Automated Deployments</div>
+                <div class="stat-number" data-target="85">0</div>
+                <div class="stat-label">Pipeline Automation (%)</div>
+            </div>
+            <div class="stat-card fade-in-3d">
+                <div class="stat-number" data-target="45">0</div>
+                <div class="stat-label">Deployment Time Reduction (%)</div>
+            </div>
+            
+            <!-- Bottom Row -->
+            <div class="stat-card fade-in-3d">
+                <div class="stat-number" data-target="12">0</div>
+                <div class="stat-label">Docker Containers Deployed</div>
             </div>
             <div class="stat-card fade-in-3d">
                 <div class="stat-number" data-target="5">0</div>
-                <div class="stat-label">AWS Services</div>
+                <div class="stat-label">Production Models</div>
             </div>
             <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="4">0</div>
-                <div class="stat-label">AI Projects</div>
+                <div class="stat-number" data-target="7">0</div>
+                <div class="stat-label">Technologies Mastered</div>
             </div>
         </div>
     </section>
@@ -2325,8 +2467,8 @@
             <div class="projects-grid-3d">
                 <div class="project-card-3d fade-in-3d" data-category="devops" data-project="cicd">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path -->
-                        <img src="project-cicd.png" alt="CI/CD Pipeline Automation" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <!-- Fixed project image path for GitHub Pages -->
+                        <img src="images/project-cicd.png" alt="CI/CD Pipeline Automation" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="image-placeholder-3d" style="display: none;">
                             <i class="fas fa-project-diagram" style="font-size: 4rem; margin-bottom: 15px;"></i>
                             <div>CI/CD Pipeline</div>
@@ -2365,8 +2507,8 @@
 
                 <div class="project-card-3d fade-in-3d" data-category="ai" data-project="sales-analytics">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path -->
-                        <img src="project-sales-analytics.png" alt="AI Sales Analytics Dashboard" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <!-- Fixed project image path for GitHub Pages -->
+                        <img src="images/project-sales-analytics.png" alt="AI Sales Analytics Dashboard" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="image-placeholder-3d" style="display: none;">
                             <i class="fas fa-chart-line" style="font-size: 4rem; margin-bottom: 15px;"></i>
                             <div>Sales Analytics</div>
@@ -2405,8 +2547,8 @@
 
                 <div class="project-card-3d fade-in-3d" data-category="ai" data-project="healthcare">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path -->
-                        <img src="project-healthcare.png" alt="Healthcare Risk Prediction" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <!-- Fixed project image path for GitHub Pages -->
+                        <img src="images/project-healthcare.png" alt="Healthcare Risk Prediction" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="image-placeholder-3d" style="display: none;">
                             <i class="fas fa-heartbeat" style="font-size: 4rem; margin-bottom: 15px;"></i>
                             <div>Healthcare AI</div>
@@ -2444,8 +2586,8 @@
 
                 <div class="project-card-3d fade-in-3d" data-category="ai" data-project="resume-screener">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path -->
-                        <img src="project-resume-ai.png" alt="AI Resume Screening Assistant" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <!-- Fixed project image path for GitHub Pages -->
+                        <img src="images/project-resume-ai.png" alt="AI Resume Screening Assistant" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="image-placeholder-3d" style="display: none;">
                             <i class="fas fa-file-alt" style="font-size: 4rem; margin-bottom: 15px;"></i>
                             <div>AI Resume Screener</div>
@@ -2545,7 +2687,7 @@
                     </div>
                     <h3 class="education-degree-3d">Bachelor of Engineering (CSE)</h3>
                     <p class="education-institution-3d">Sri Sairam College of Engineering</p>
-                    <p class="education-details-3d">Bengaluru | 2021 - 2025 | CGPA: 8.4/10</p>
+                    <p class="education-details-3d">Bengaluru | 2021 - 2025 | CGPA: 8/10</p>
                 </div>
                 <div class="education-card-3d fade-in-3d">
                     <div class="education-icon-3d">
@@ -2561,7 +2703,7 @@
                     </div>
                     <h3 class="education-degree-3d">SSLC (10th Grade)</h3>
                     <p class="education-institution-3d">JSS Public School</p>
-                    <p class="education-details-3d">Dharwad | 2018 - 2019 | 64.5%</p>
+                    <p class="education-details-3d">Dharwad | 2018 - 2019 | 65%</p>
                 </div>
             </div>
         </div>
@@ -2757,24 +2899,44 @@
             }
         };
 
-        // Optimized Loading Screen - Much Faster
+        // Industry-Ready DevOps Loading Screen
         window.addEventListener('load', function() {
             const loader = document.getElementById('loader');
             const loaderProgress = document.querySelector('.loader-progress-bar');
             let progress = 0;
             
-            // Much faster loading animation
+            // DevOps pipeline stage activation
+            const stages = document.querySelectorAll('.pipeline-stage');
+            let currentStage = 0;
+            
             const interval = setInterval(() => {
-                progress += Math.random() * 25; // Increased increment for faster loading
+                // Progress bar animation
+                progress += 5;
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
                     setTimeout(() => {
                         loader.classList.add('hidden');
-                    }, 200); // Reduced fade out time
+                        // Show floating badges after loading
+                        setTimeout(() => {
+                            document.getElementById('fresherBadge').classList.add('show');
+                            document.getElementById('aiBadge').classList.add('show');
+                        }, 500);
+                    }, 200);
                 }
                 loaderProgress.style.width = `${progress}%`;
-            }, 50); // Much faster interval
+                
+                // Pipeline stage animation
+                if (progress > 20 && currentStage < stages.length) {
+                    stages[currentStage].classList.add('active');
+                    currentStage++;
+                    
+                    // Remove active class from previous stage
+                    if (currentStage > 1 && currentStage <= stages.length) {
+                        stages[currentStage - 2].classList.remove('active');
+                    }
+                }
+            }, 30);
         });
 
         // Custom Cursor
@@ -2873,7 +3035,7 @@
             });
         });
 
-        // Particle Background - Optimized
+        // Particle Background - Optimized for GitHub Pages
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -2885,17 +3047,17 @@
 
         function createParticles() {
             particles = [];
-            // Reduced particle count for better performance
-            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 25000);
+            // Reduced particle count for GitHub Pages performance
+            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 30000);
             
             for (let i = 0; i < numberOfParticles; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     size: Math.random() * 2 + 1,
-                    speedX: (Math.random() - 0.5) * 0.5,
-                    speedY: (Math.random() - 0.5) * 0.5,
-                    opacity: Math.random() * 0.5 + 0.2
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    speedY: (Math.random() - 0.5) * 0.3,
+                    opacity: Math.random() * 0.4 + 0.2
                 });
             }
         }
@@ -2925,11 +3087,11 @@
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (distance < 120) {
+                    if (distance < 100) {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(0, 255, 136, ${0.1 * (1 - distance / 120)})`;
+                        ctx.strokeStyle = `rgba(0, 255, 136, ${0.08 * (1 - distance / 100)})`;
                         ctx.stroke();
                     }
                 }
@@ -2973,7 +3135,7 @@
                         const counter = entry.target.querySelector('.stat-number');
                         const target = parseInt(counter.getAttribute('data-target'));
                         let current = 0;
-                        const increment = target / 50; // Faster counter animation
+                        const increment = target / 30;
                         
                         const updateCounter = () => {
                             current += increment;
@@ -3196,7 +3358,31 @@
                     }
                 });
             });
+
+            // GitHub Pages optimization - Preload critical images
+            if (window.location.hostname.includes('github.io')) {
+                const criticalImages = document.querySelectorAll('img[src^="images/"]');
+                criticalImages.forEach(img => {
+                    const preloadLink = document.createElement('link');
+                    preloadLink.rel = 'preload';
+                    preloadLink.as = 'image';
+                    preloadLink.href = img.src;
+                    document.head.appendChild(preloadLink);
+                });
+            }
         });
+
+        // Performance optimization for GitHub Pages
+        if ('serviceWorker' in navigator && window.location.hostname.includes('github.io')) {
+            // Simple service worker for offline capability
+            const swRegistration = navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('ServiceWorker registered');
+                })
+                .catch(error => {
+                    console.log('ServiceWorker registration failed:', error);
+                });
+        }
     </script>
 </body>
 </html>
