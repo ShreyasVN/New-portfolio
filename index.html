@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shreyas Neelaraddi | AI/ML & DevOps Engineer</title>
     <meta name="description" content="AI/ML and DevOps Engineer specializing in Python, Docker, Kubernetes, Terraform, and AWS. Building scalable AI solutions and robust DevOps pipelines.">
-    <meta name="keywords" content="AI/ML Engineer, DevOps, Python, Docker, Kubernetes, Terraform, AWS, CI/CD, Machine Learning, Cloud Engineering">
+    <meta name="keywords" content="AI/ML Engineer, DevOps, Python, Docker, Kubernetes, Terraform, AWS, CI/CD, Machine Learning, Cloud Engineering, Shreyas Neelaraddi">
     <meta name="author" content="Shreyas Neelaraddi">
     
     <!-- GitHub Pages Optimization -->
@@ -49,6 +49,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         ::-webkit-scrollbar {
@@ -74,36 +75,50 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
-            cursor: none;
+            /* Custom cursor default hidden, enabled via JS class */
+            cursor: default; 
         }
 
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
+        /* Custom Cursor - Disabled on Touch Devices via CSS below */
+        @media (hover: hover) and (pointer: fine) {
+            body {
+                cursor: none;
+            }
+            
+            .cursor {
+                width: 20px;
+                height: 20px;
+                border: 2px solid var(--primary);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                transition: transform 0.1s ease;
+                mix-blend-mode: difference;
+                display: block;
+            }
+
+            .cursor-follower {
+                width: 40px;
+                height: 40px;
+                background: radial-gradient(circle, rgba(0, 255, 136, 0.1), transparent);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9998;
+                transition: transform 0.3s ease;
+                display: block;
+            }
+
+            .cursor.hover {
+                transform: scale(2);
+                background: var(--primary);
+            }
         }
 
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.1), transparent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s ease;
-        }
-
-        .cursor.hover {
-            transform: scale(2);
-            background: var(--primary);
+        /* Mobile/Touch fallback for cursor elements */
+        .cursor, .cursor-follower {
+            display: none;
         }
 
         /* Industry-Ready DevOps Loading Screen */
@@ -217,6 +232,7 @@
             font-size: 1.1rem;
             text-align: center;
             margin-bottom: 20px;
+            min-height: 1.5em; /* Prevent layout shift */
         }
 
         .loader-progress {
@@ -231,7 +247,8 @@
         .loader-progress-bar {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            animation: loadProgress 2s ease-out;
+            width: 0%;
+            transition: width 0.2s linear;
             border-radius: 2px;
             position: relative;
         }
@@ -252,11 +269,6 @@
         @keyframes shimmer {
             0% { transform: translateX(-100px); }
             100% { transform: translateX(300px); }
-        }
-
-        @keyframes loadProgress {
-            from { width: 0; }
-            to { width: 100%; }
         }
 
         /* Theme Toggle */
@@ -529,14 +541,8 @@
         }
 
         @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px); }
         }
 
         .hero-description-3d {
@@ -849,6 +855,7 @@
             background: var(--primary);
             animation: blink 1s infinite;
             margin-left: 8px;
+            vertical-align: middle;
         }
 
         @keyframes blink {
@@ -1931,11 +1938,6 @@
             border: 0;
         }
 
-        /* Smooth scroll behavior for all browsers */
-        html {
-            scroll-behavior: smooth;
-        }
-
         /* Reduce motion for accessibility */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -1987,7 +1989,7 @@
                 </div>
                 <div class="pipeline-flow"></div>
             </div>
-            <div class="loader-text">Initializing DevOps Pipeline...</div>
+            <div class="loader-text" id="loaderText">Initializing DevOps Pipeline...</div>
             <div class="loader-progress">
                 <div class="loader-progress-bar"></div>
             </div>
@@ -2035,12 +2037,11 @@
         <div class="hero-container">
             <div class="hero-profile-3d">
                 <div class="profile-image-wrapper-3d">
-                    <!-- Fixed profile image path for GitHub Pages -->
-                    <img src="images/Shreyas%20N.png" alt="Shreyas Neelaraddi" class="profile-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-placeholder-3d" style="display: none;">
-                        <i class="fas fa-user" style="font-size: 6rem; margin-bottom: 20px;"></i>
-                        <div>Profile Photo</div>
-                    </div>
+                    <!-- Fixed profile image path with fallback to Picsum -->
+                    <img src="images/Shreyas%20N.png" 
+                         alt="Shreyas Neelaraddi" 
+                         class="profile-image" 
+                         onerror="this.onerror=null;this.src='https://picsum.photos/seed/shreyas/350/350';">
                     <div class="status-indicator-3d" title="Available for opportunities"></div>
                 </div>
             </div>
@@ -2054,20 +2055,21 @@
                     LLMs, and MLOps workflows.
                 </p>
                 <div class="hero-buttons-3d">
-                    <a href="#projects" class="btn-3d btn-3d-primary">
+                    <!-- New Resume Download Button -->
+                    <a href="#" onclick="downloadResume(event)" class="btn-3d btn-3d-primary">
+                        <i class="fas fa-file-download"></i>
+                        Download CV
+                    </a>
+                    <a href="#projects" class="btn-3d btn-3d-secondary">
                         <i class="fas fa-rocket"></i>
                         View Projects
-                    </a>
-                    <a href="#contact" class="btn-3d btn-3d-secondary">
-                        <i class="fas fa-envelope"></i>
-                        Get In Touch
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Industry Stats Section - 3x2 Grid -->
+    <!-- Industry Stats Section - Synced with Resume Data -->
     <section class="industry-stats" id="stats">
         <div class="section-header-3d fade-in-3d">
             <h2 class="section-title-3d">Industry Impact</h2>
@@ -2077,29 +2079,29 @@
             <!-- Top Row -->
             <div class="stat-card fade-in-3d">
                 <div class="stat-number" data-target="93">0</div>
-                <div class="stat-label">ML Model Accuracy (%)</div>
+                <div class="stat-label">Sales Model Accuracy (%)</div>
             </div>
             <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="25">0</div>
-                <div class="stat-label">Pipeline Automation (%)</div>
+                <div class="stat-number" data-target="92">0</div>
+                <div class="stat-label">Healthcare Model Accuracy (%)</div>
             </div>
             <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="45">0</div>
-                <div class="stat-label">Deployment Time Reduction (%)</div>
+                <div class="stat-number" data-target="2">0</div>
+                <div class="stat-label">Industry Internships</div>
             </div>
             
             <!-- Bottom Row -->
             <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="5">0</div>
-                <div class="stat-label">Docker Containers Deployed</div>
+                <div class="stat-number" data-target="4">0</div>
+                <div class="stat-label">Major AI Projects</div>
             </div>
             <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="5">0</div>
-                <div class="stat-label">Production Models</div>
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">DevOps Tools Mastered</div>
             </div>
             <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="7">0</div>
-                <div class="stat-label">Technologies Mastered</div>
+                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-label">Commitment to Excellence</div>
             </div>
         </div>
     </section>
@@ -2118,55 +2120,7 @@
                 <div class="terminal-title-3d">shreyas@portfolio: ~</div>
             </div>
             <div class="terminal-body-3d" id="terminal">
-                <div class="terminal-line-3d" style="animation-delay: 0.1s;">
-                    <span class="terminal-prompt-3d">$</span>
-                    <span class="terminal-command-3d"> whoami</span>
-                </div>
-                <div class="terminal-output-3d" style="animation-delay: 0.3s;">
-                    Shreyas Neelaraddi<br>
-                    Role: AI/ML & DevOps Engineer<br>
-                    Location: Bengaluru, India<br>
-                    Status: <span style="color: var(--success);">● Available for opportunities</span>
-                </div>
-                <div class="terminal-line-3d" style="animation-delay: 0.8s;">
-                    <span class="terminal-prompt-3d">$</span>
-                    <span class="terminal-command-3d"> cat profile.txt</span>
-                </div>
-                <div class="terminal-output-3d" style="animation-delay: 1s;">
-                    <strong>Professional Summary:</strong><br>
-                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
-                    Passionate engineer with expertise in automating ML pipelines,<br>
-                    containerizing applications, and deploying scalable solutions<br>
-                    on cloud infrastructure. Proficient in building end-to-end<br>
-                    CI/CD pipelines and developing AI-powered applications.<br><br>
-                    
-                    <strong>Core Competencies:</strong><br>
-                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
-                    • Machine Learning Operations (MLOps)<br>
-                    • Cloud Infrastructure & DevOps<br>
-                    • Generative AI & LLM Integration<br>
-                    • Full-stack Application Development<br>
-                    • System Monitoring & Observability<br><br>
-
-                    <strong>Technical Expertise:</strong><br>
-                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
-                    • Python, Docker, Kubernetes, Terraform, Ansible<br>
-                    • AWS Cloud Services & Infrastructure as Code<br>
-                    • OpenAI API, LangChain, RAG Workflows<br>
-                    • Prometheus, Grafana Monitoring<br>
-                    • CI/CD Automation with Jenkins & GitHub Actions
-                </div>
-                <div class="terminal-line-3d" style="animation-delay: 1.5s;">
-                    <span class="terminal-prompt-3d">$</span>
-                    <span class="terminal-command-3d"> echo "Ready to build amazing solutions"</span>
-                </div>
-                <div class="terminal-output-3d" style="animation-delay: 1.7s;">
-                    Ready to build amazing solutions
-                </div>
-                <div class="terminal-line-3d" style="animation-delay: 2s;">
-                    <span class="terminal-prompt-3d">$</span>
-                    <span class="terminal-cursor-3d"></span>
-                </div>
+                <!-- Content populated by JS for typewriter effect -->
             </div>
         </div>
     </section>
@@ -2230,19 +2184,6 @@
                             <span class="skill-dot-3d"></span>
                         </div>
                     </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d">
-                            <i class="fas fa-terminal" style="color: var(--primary);"></i>
-                            Bash
-                        </span>
-                        <div class="skill-level-3d">
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="skill-card-3d fade-in-3d" data-category="devops">
@@ -2302,19 +2243,6 @@
                             <span class="skill-dot-3d"></span>
                         </div>
                     </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d">
-                            <i class="fab fa-jenkins" style="color: var(--warning);"></i>
-                            Jenkins
-                        </span>
-                        <div class="skill-level-3d">
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d"></span>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="skill-card-3d fade-in-3d" data-category="ai">
@@ -2326,6 +2254,20 @@
                         <span class="skill-name-3d">
                             <i class="fas fa-robot" style="color: var(--accent);"></i>
                             OpenAI API
+                        </span>
+                        <div class="skill-level-3d">
+                            <span class="skill-dot-3d filled"></span>
+                            <span class="skill-dot-3d filled"></span>
+                            <span class="skill-dot-3d filled"></span>
+                            <span class="skill-dot-3d filled"></span>
+                            <span class="skill-dot-3d"></span>
+                        </div>
+                    </div>
+                    <!-- Added Gemini API -->
+                    <div class="skill-item-3d">
+                        <span class="skill-name-3d">
+                            <i class="fas fa-comment-dots" style="color: var(--secondary);"></i>
+                            Gemini API
                         </span>
                         <div class="skill-level-3d">
                             <span class="skill-dot-3d filled"></span>
@@ -2350,40 +2292,14 @@
                     </div>
                     <div class="skill-item-3d">
                         <span class="skill-name-3d">
-                            <i class="fas fa-chart-line" style="color: var(--secondary);"></i>
-                            TensorFlow
+                            <i class="fas fa-chart-bar" style="color: var(--secondary);"></i>
+                            Time-series
                         </span>
                         <div class="skill-level-3d">
-                            <span class="skill-dot-3d filled"></span>
                             <span class="skill-dot-3d filled"></span>
                             <span class="skill-dot-3d filled"></span>
                             <span class="skill-dot-3d filled"></span>
                             <span class="skill-dot-3d"></span>
-                        </div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d">
-                            <i class="fas fa-database" style="color: var(--primary);"></i>
-                            Vector Databases
-                        </span>
-                        <div class="skill-level-3d">
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d"></span>
-                        </div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d">
-                            <i class="fas fa-microchip" style="color: var(--success);"></i>
-                            Prompt Engineering
-                        </span>
-                        <div class="skill-level-3d">
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
                             <span class="skill-dot-3d"></span>
                         </div>
                     </div>
@@ -2433,19 +2349,6 @@
                             <span class="skill-dot-3d"></span>
                         </div>
                     </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d">
-                            <i class="fas fa-chart-bar" style="color: var(--secondary);"></i>
-                            Power BI
-                        </span>
-                        <div class="skill-level-3d">
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d filled"></span>
-                            <span class="skill-dot-3d"></span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -2462,17 +2365,12 @@
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="devops">DevOps</button>
                 <button class="filter-btn" data-filter="ai">AI/ML</button>
-                <button class="filter-btn" data-filter="web">Web</button>
             </div>
             <div class="projects-grid-3d">
+                <!-- Project 1 -->
                 <div class="project-card-3d fade-in-3d" data-category="devops" data-project="cicd">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path for GitHub Pages -->
-                        <img src="images/project-cicd.png" alt="CI/CD Pipeline Automation" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="image-placeholder-3d" style="display: none;">
-                            <i class="fas fa-project-diagram" style="font-size: 4rem; margin-bottom: 15px;"></i>
-                            <div>CI/CD Pipeline</div>
-                        </div>
+                        <img src="images/project-cicd.png" alt="CI/CD Pipeline Automation" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cicd/600/400';">
                         <div class="project-overlay-3d">
                             <div class="project-quick-view-3d">
                                 <i class="fas fa-eye"></i> Quick View: Automated deployment pipeline
@@ -2490,29 +2388,18 @@
                             <span class="tech-badge-3d">Docker</span>
                             <span class="tech-badge-3d">Kubernetes</span>
                             <span class="tech-badge-3d">Terraform</span>
-                            <span class="tech-badge-3d">Ansible</span>
                         </div>
                         <div class="project-links-3d">
-                            <a href="#" class="project-link-3d">
-                                <i class="fas fa-external-link-alt"></i>
-                                Live Demo
-                            </a>
-                            <a href="#" class="project-link-3d">
-                                <i class="fab fa-github"></i>
-                                Source Code
-                            </a>
+                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Project 2 -->
                 <div class="project-card-3d fade-in-3d" data-category="ai" data-project="sales-analytics">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path for GitHub Pages -->
-                        <img src="images/project-sales-analytics.png" alt="AI Sales Analytics Dashboard" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="image-placeholder-3d" style="display: none;">
-                            <i class="fas fa-chart-line" style="font-size: 4rem; margin-bottom: 15px;"></i>
-                            <div>Sales Analytics</div>
-                        </div>
+                        <img src="images/project-sales-analytics.png" alt="AI Sales Analytics Dashboard" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sales/600/400';">
                         <div class="project-overlay-3d">
                             <div class="project-quick-view-3d">
                                 <i class="fas fa-eye"></i> Quick View: 93% accurate forecasting
@@ -2530,29 +2417,18 @@
                             <span class="tech-badge-3d">Power BI</span>
                             <span class="tech-badge-3d">AWS</span>
                             <span class="tech-badge-3d">TensorFlow</span>
-                            <span class="tech-badge-3d">Docker</span>
                         </div>
                         <div class="project-links-3d">
-                            <a href="#" class="project-link-3d">
-                                <i class="fas fa-external-link-alt"></i>
-                                Live Demo
-                            </a>
-                            <a href="#" class="project-link-3d">
-                                <i class="fab fa-github"></i>
-                                Source Code
-                            </a>
+                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Project 3 -->
                 <div class="project-card-3d fade-in-3d" data-category="ai" data-project="healthcare">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path for GitHub Pages -->
-                        <img src="images/project-healthcare.png" alt="Healthcare Risk Prediction" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="image-placeholder-3d" style="display: none;">
-                            <i class="fas fa-heartbeat" style="font-size: 4rem; margin-bottom: 15px;"></i>
-                            <div>Healthcare AI</div>
-                        </div>
+                        <img src="images/project-healthcare.png" alt="Healthcare Risk Prediction" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/health/600/400';">
                         <div class="project-overlay-3d">
                             <div class="project-quick-view-3d">
                                 <i class="fas fa-eye"></i> Quick View: 92% accuracy prediction model
@@ -2572,26 +2448,16 @@
                             <span class="tech-badge-3d">Ansible</span>
                         </div>
                         <div class="project-links-3d">
-                            <a href="#" class="project-link-3d">
-                                <i class="fas fa-external-link-alt"></i>
-                                Live Demo
-                            </a>
-                            <a href="#" class="project-link-3d">
-                                <i class="fab fa-github"></i>
-                                Source Code
-                            </a>
+                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
                         </div>
                     </div>
                 </div>
 
+                <!-- Project 4 -->
                 <div class="project-card-3d fade-in-3d" data-category="ai" data-project="resume-screener">
                     <div class="project-image-container-3d">
-                        <!-- Fixed project image path for GitHub Pages -->
-                        <img src="images/project-resume-ai.png" alt="AI Resume Screening Assistant" class="project-image-3d" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="image-placeholder-3d" style="display: none;">
-                            <i class="fas fa-file-alt" style="font-size: 4rem; margin-bottom: 15px;"></i>
-                            <div>AI Resume Screener</div>
-                        </div>
+                        <img src="images/project-resume-ai.png" alt="AI Resume Screening Assistant" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/resume/600/400';">
                         <div class="project-overlay-3d">
                             <div class="project-quick-view-3d">
                                 <i class="fas fa-eye"></i> Quick View: GPT-powered resume analysis
@@ -2611,14 +2477,8 @@
                             <span class="tech-badge-3d">Docker Compose</span>
                         </div>
                         <div class="project-links-3d">
-                            <a href="#" class="project-link-3d">
-                                <i class="fas fa-external-link-alt"></i>
-                                Live Demo
-                            </a>
-                            <a href="#" class="project-link-3d">
-                                <i class="fab fa-github"></i>
-                                Source Code
-                            </a>
+                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
                         </div>
                     </div>
                 </div>
@@ -2634,6 +2494,7 @@
                 <p class="section-subtitle-3d">My career timeline and achievements</p>
             </div>
             <div class="timeline-3d">
+                <!-- Internship 1 -->
                 <div class="timeline-item-3d fade-in-3d">
                     <div class="timeline-icon-3d">
                         <i class="fas fa-briefcase"></i>
@@ -2652,6 +2513,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Internship 2 -->
                 <div class="timeline-item-3d fade-in-3d">
                     <div class="timeline-icon-3d">
                         <i class="fas fa-code"></i>
@@ -2662,9 +2524,9 @@
                         <p class="timeline-subtitle-3d">VaultofCodes</p>
                         <div class="timeline-description-3d">
                             <ul>
-                                <li><i class="fas fa-check-circle"></i> Developed RESTful APIs using Python and Flask</li>
-                                <li><i class="fas fa-check-circle"></i> Worked with Linux administration and automation scripting</li>
-                                <li><i class="fas fa-check-circle"></i> Utilized Git for version control</li>
+                                <li><i class="fas fa-check-circle"></i> Developed speech recognition application using Python</li>
+                                <li><i class="fas fa-check-circle"></i> Containerized application using Docker</li>
+                                <li><i class="fas fa-check-circle"></i> Implemented multi-threaded modules for improved performance</li>
                             </ul>
                         </div>
                     </div>
@@ -2687,7 +2549,7 @@
                     </div>
                     <h3 class="education-degree-3d">Bachelor of Engineering (CSE)</h3>
                     <p class="education-institution-3d">Sri Sairam College of Engineering</p>
-                    <p class="education-details-3d">Bengaluru | 2021 - 2025 | CGPA: 8/10</p>
+                    <p class="education-details-3d">Bengaluru | 2021 - 2025 | CGPA: 8</p>
                 </div>
                 <div class="education-card-3d fade-in-3d">
                     <div class="education-icon-3d">
@@ -2703,7 +2565,7 @@
                     </div>
                     <h3 class="education-degree-3d">SSLC (10th Grade)</h3>
                     <p class="education-institution-3d">JSS Public School</p>
-                    <p class="education-details-3d">Dharwad | 2018 - 2019 | 65%</p>
+                    <p class="education-details-3d">Dharwad | 2018 - 2019 | 64.5%</p>
                 </div>
             </div>
         </div>
@@ -2739,7 +2601,7 @@
                     </div>
                     <h3 class="certificate-title-3d">DataCamp Certifications</h3>
                     <p class="certificate-issuer-3d">DataCamp</p>
-                    <p class="certificate-date-3d">Machine Learning / Python / DevOps</p>
+                    <p class="certificate-date-3d">ML, Python, Data Engineering, SQL</p>
                 </div>
             </div>
         </div>
@@ -2849,8 +2711,8 @@
                     "Real-time monitoring and alerting with Prometheus/Grafana",
                     "Zero-downtime deployments with rolling updates"
                 ],
-                demo: "https://demo.example.com/cicd",
-                github: "https://github.com/shreyasneelaraddi/cicd-pipeline"
+                demo: "#",
+                github: "#"
             },
             "sales-analytics": {
                 title: "AI-Driven Sales Analytics Dashboard",
@@ -2864,8 +2726,8 @@
                     "Continuous integration with GitHub Actions",
                     "Automated model retraining and validation"
                 ],
-                demo: "https://demo.example.com/sales-analytics",
-                github: "https://github.com/shreyasneelaraddi/sales-analytics"
+                demo: "#",
+                github: "#"
             },
             healthcare: {
                 title: "Healthcare Risk Prediction System",
@@ -2879,8 +2741,8 @@
                     "Containerized deployment with Docker",
                     "Automated deployment with Ansible playbooks"
                 ],
-                demo: "https://demo.example.com/healthcare-risk",
-                github: "https://github.com/shreyasneelaraddi/healthcare-risk"
+                demo: "#",
+                github: "#"
             },
             "resume-screener": {
                 title: "AI-Powered Resume Screening and Interview Assistant",
@@ -2894,27 +2756,50 @@
                     "Automated deployment with Docker Compose",
                     "CI/CD pipeline for continuous integration"
                 ],
-                demo: "https://demo.example.com/resume-screener",
-                github: "https://github.com/shreyasneelaraddi/resume-screener"
+                demo: "#",
+                github: "#"
             }
         };
+
+        // Resume Download Functionality
+        function downloadResume(e) {
+            e.preventDefault();
+            // In a real scenario, this would link to 'Shreyas N Resume.pdf'
+            // For this demo, we show a toast
+            showToast('Downloading Resume...', 'success');
+            setTimeout(() => {
+                // Simulate download start
+                window.open('Shreyas%20N%20Resume.pdf', '_blank');
+            }, 1000);
+        }
 
         // Industry-Ready DevOps Loading Screen
         window.addEventListener('load', function() {
             const loader = document.getElementById('loader');
             const loaderProgress = document.querySelector('.loader-progress-bar');
+            const loaderText = document.getElementById('loaderText');
             let progress = 0;
             
             // DevOps pipeline stage activation
             const stages = document.querySelectorAll('.pipeline-stage');
             let currentStage = 0;
+
+            // Dynamic text updates
+            const stageMessages = [
+                "Cloning Repository...",
+                "Building Docker Images...",
+                "Running Unit Tests...",
+                "Deploying to Kubernetes...",
+                "Configuring Monitoring..."
+            ];
             
             const interval = setInterval(() => {
                 // Progress bar animation
-                progress += 5;
+                progress += Math.random() * 5;
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
+                    loaderText.textContent = "System Ready";
                     setTimeout(() => {
                         loader.classList.add('hidden');
                         // Show floating badges after loading
@@ -2922,47 +2807,103 @@
                             document.getElementById('fresherBadge').classList.add('show');
                             document.getElementById('aiBadge').classList.add('show');
                         }, 500);
-                    }, 200);
+                        // Start terminal typing effect
+                        typeTerminal();
+                    }, 500);
+                } else {
+                    loaderProgress.style.width = `${progress}%`;
+                    
+                    // Update text based on progress
+                    const stageIndex = Math.floor((progress / 100) * stages.length);
+                    if(stageIndex < stageMessages.length && stageIndex > currentStage) {
+                        loaderText.textContent = stageMessages[stageIndex];
+                        currentStage = stageIndex;
+                    }
                 }
-                loaderProgress.style.width = `${progress}%`;
                 
                 // Pipeline stage animation
                 if (progress > 20 && currentStage < stages.length) {
-                    stages[currentStage].classList.add('active');
-                    currentStage++;
-                    
-                    // Remove active class from previous stage
-                    if (currentStage > 1 && currentStage <= stages.length) {
-                        stages[currentStage - 2].classList.remove('active');
-                    }
+                    const activeIndex = Math.floor((progress / 100) * stages.length);
+                    stages.forEach((stage, index) => {
+                        if (index === activeIndex) stage.classList.add('active');
+                        else stage.classList.remove('active');
+                    });
                 }
-            }, 30);
+            }, 50);
         });
 
-        // Custom Cursor
+        // Typewriter Effect for Terminal
+        function typeTerminal() {
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = ''; // Clear initially
+            
+            const lines = [
+                { type: 'command', text: 'whoami' },
+                { type: 'output', html: 'Shreyas Neelaraddi<br>Role: AI/ML & DevOps Engineer<br>Location: Bengaluru, India<br>Status: <span style="color: var(--success);">● Available for opportunities</span>' },
+                { type: 'command', text: 'cat profile.txt' },
+                { type: 'output', html: '<strong>Professional Summary:</strong><br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>Passionate engineer with expertise in automating ML pipelines,<br>containerizing applications, and deploying scalable solutions<br>on cloud infrastructure. Proficient in building end-to-end<br>CI/CD pipelines and developing AI-powered applications.<br><br><strong>Core Competencies:</strong><br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>• Machine Learning Operations (MLOps)<br>• Cloud Infrastructure & DevOps<br>• Generative AI & LLM Integration' },
+                { type: 'command', text: 'echo "Ready to build amazing solutions"' },
+                { type: 'output', text: 'Ready to build amazing solutions' }
+            ];
+
+            let lineIndex = 0;
+            
+            function addLine() {
+                if (lineIndex >= lines.length) {
+                    // Add blinking cursor at the end
+                    const cursorLine = document.createElement('div');
+                    cursorLine.className = 'terminal-line-3d';
+                    cursorLine.innerHTML = `<span class="terminal-prompt-3d">$</span> <span class="terminal-cursor-3d"></span>`;
+                    terminal.appendChild(cursorLine);
+                    return;
+                }
+
+                const lineData = lines[lineIndex];
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'terminal-line-3d';
+                lineDiv.style.animation = 'none'; // disable default fade in
+                lineDiv.style.opacity = '1';
+                
+                if (lineData.type === 'command') {
+                    lineDiv.innerHTML = `<span class="terminal-prompt-3d">$</span> <span class="terminal-command-3d">${lineData.text}</span>`;
+                } else {
+                    lineDiv.innerHTML = `<div class="terminal-output-3d">${lineData.html}</div>`;
+                }
+                
+                terminal.appendChild(lineDiv);
+                lineIndex++;
+                setTimeout(addLine, 800); // Delay between lines
+            }
+            
+            addLine();
+        }
+
+        // Custom Cursor Logic
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX - 10 + 'px';
-                cursorFollower.style.top = e.clientY - 10 + 'px';
-            }, 100);
-        });
+        if (window.matchMedia("(hover: hover)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(() => {
+                    cursorFollower.style.left = e.clientX - 10 + 'px';
+                    cursorFollower.style.top = e.clientY - 10 + 'px';
+                }, 100);
+            });
 
-        document.querySelectorAll('a, button, .project-card-3d, .skill-card-3d, .education-card-3d, .certificate-card-3d').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
-                cursorFollower.style.transform = 'scale(1.5)';
+            document.querySelectorAll('a, button, .project-card-3d, .skill-card-3d, .education-card-3d, .certificate-card-3d').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                    cursorFollower.style.transform = 'scale(1.5)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                    cursorFollower.style.transform = 'scale(1)';
+                });
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
-                cursorFollower.style.transform = 'scale(1)';
-            });
-        });
+        }
 
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -3035,10 +2976,11 @@
             });
         });
 
-        // Particle Background - Optimized for GitHub Pages
+        // Particle Background - Optimized
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
+        let animationFrameId;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -3047,7 +2989,6 @@
 
         function createParticles() {
             particles = [];
-            // Reduced particle count for GitHub Pages performance
             const numberOfParticles = Math.floor((canvas.width * canvas.height) / 30000);
             
             for (let i = 0; i < numberOfParticles; i++) {
@@ -3080,7 +3021,7 @@
                 if (particle.y > canvas.height) particle.y = 0;
             });
             
-            // Draw connections between nearby particles
+            // Draw connections
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -3096,11 +3037,7 @@
                     }
                 }
             }
-        }
-
-        function animateParticles() {
-            drawParticles();
-            requestAnimationFrame(animateParticles);
+            animationFrameId = requestAnimationFrame(drawParticles);
         }
 
         window.addEventListener('resize', () => {
@@ -3110,7 +3047,16 @@
 
         resizeCanvas();
         createParticles();
-        animateParticles();
+        drawParticles();
+
+        // Pause animation when tab is inactive
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationFrameId);
+            } else {
+                drawParticles();
+            }
+        });
 
         // Scroll Progress
         window.addEventListener('scroll', function() {
@@ -3119,7 +3065,7 @@
             scrollProgress.style.width = `${(window.scrollY / totalHeight) * 100}%`;
         });
 
-        // Intersection Observer for animations - Optimized
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -3130,23 +3076,25 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     
-                    // Animate stats counters
                     if (entry.target.classList.contains('stat-card')) {
                         const counter = entry.target.querySelector('.stat-number');
-                        const target = parseInt(counter.getAttribute('data-target'));
-                        let current = 0;
-                        const increment = target / 30;
-                        
-                        const updateCounter = () => {
-                            current += increment;
-                            if (current < target) {
-                                counter.textContent = Math.ceil(current);
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.textContent = target + (target === 93 ? '%' : '+');
-                            }
-                        };
-                        updateCounter();
+                        if(counter && !counter.classList.contains('counted')) {
+                            counter.classList.add('counted');
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            let current = 0;
+                            const increment = target / 50;
+                            
+                            const updateCounter = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.textContent = Math.ceil(current);
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.textContent = target + (target > 90 ? '%' : '+');
+                                }
+                            };
+                            updateCounter();
+                        }
                     }
                 }
             });
@@ -3156,67 +3104,45 @@
             observer.observe(el);
         });
 
-        // Skills Filter
-        const skillsFilterBtns = document.querySelectorAll('.skills-filter .filter-btn');
-        const skillCards = document.querySelectorAll('.skill-card-3d');
+        // Filter Logic (Skills & Projects)
+        function setupFilters(filterBtnClass, cardClass, dataAttr) {
+            const buttons = document.querySelectorAll(`.${filterBtnClass}`);
+            const cards = document.querySelectorAll(`.${cardClass}`);
 
-        skillsFilterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.getAttribute('data-filter');
-                
-                skillsFilterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                skillCards.forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 10);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute(dataAttr) === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
                 });
             });
-        });
+        }
 
-        // Projects Filter and Modal
-        const projectsFilterBtns = document.querySelectorAll('.projects-filter .filter-btn');
+        setupFilters('skills-filter .filter-btn', 'skill-card-3d', 'data-category');
+        setupFilters('projects-filter .filter-btn', 'project-card-3d', 'data-category');
+
+        // Project Modal
         const projectCards = document.querySelectorAll('.project-card-3d');
         const modal = document.getElementById('projectModal');
         const modalClose = document.getElementById('modalClose');
 
-        projectsFilterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.getAttribute('data-filter');
-                
-                projectsFilterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                projectCards.forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 10);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-
-        // Project Modal
         projectCards.forEach(card => {
             card.addEventListener('click', (e) => {
                 if (!e.target.closest('.project-link-3d')) {
@@ -3274,10 +3200,8 @@
             
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
-            // Form validation
             if (message.length < 10) {
                 showToast('Message must be at least 10 characters long', 'error');
                 return;
@@ -3289,12 +3213,8 @@
                 return;
             }
             
-            // Show success message
-            showToast(`Thank you ${name}! Your message has been sent successfully.`, 'success');
+            showToast(`Thank you ${name}! Your message has been sent.`, 'success');
             contactForm.reset();
-            
-            // Log form data (in production, send to server)
-            console.log('Form submitted:', { name, email, subject, message });
         });
 
         function showToast(message, type = 'success') {
@@ -3319,70 +3239,16 @@
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             
             switch(e.key.toLowerCase()) {
-                case 'h':
-                    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case 's':
-                    document.getElementById('stats').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case 'a':
-                    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case 'p':
-                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case 'e':
-                    document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case 'c':
-                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                    break;
-                case 't':
-                    themeToggle.click();
-                    break;
-                case 'escape':
-                    modal.classList.remove('active');
-                    break;
+                case 'h': document.getElementById('home').scrollIntoView({ behavior: 'smooth' }); break;
+                case 's': document.getElementById('stats').scrollIntoView({ behavior: 'smooth' }); break;
+                case 'a': document.getElementById('about').scrollIntoView({ behavior: 'smooth' }); break;
+                case 'p': document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }); break;
+                case 'e': document.getElementById('experience').scrollIntoView({ behavior: 'smooth' }); break;
+                case 'c': document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); break;
+                case 't': themeToggle.click(); break;
+                case 'escape': modal.classList.remove('active'); break;
             }
         });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            // Smooth scroll behavior
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-            // GitHub Pages optimization - Preload critical images
-            if (window.location.hostname.includes('github.io')) {
-                const criticalImages = document.querySelectorAll('img[src^="images/"]');
-                criticalImages.forEach(img => {
-                    const preloadLink = document.createElement('link');
-                    preloadLink.rel = 'preload';
-                    preloadLink.as = 'image';
-                    preloadLink.href = img.src;
-                    document.head.appendChild(preloadLink);
-                });
-            }
-        });
-
-        // Performance optimization for GitHub Pages
-        if ('serviceWorker' in navigator && window.location.hostname.includes('github.io')) {
-            // Simple service worker for offline capability
-            const swRegistration = navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('ServiceWorker registered');
-                })
-                .catch(error => {
-                    console.log('ServiceWorker registration failed:', error);
-                });
-        }
     </script>
 </body>
 </html>
