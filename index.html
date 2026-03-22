@@ -1,3061 +1,820 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shreyas Neelaraddi | AI/ML & DevOps Engineer</title>
-    <meta name="description" content="AI/ML and DevOps Engineer specializing in Python, Docker, Kubernetes, Terraform, and AWS. Building scalable AI solutions and robust DevOps pipelines.">
-    <meta name="keywords" content="AI/ML Engineer, DevOps, Python, Docker, Kubernetes, Terraform, AWS, CI/CD, Machine Learning, Cloud Engineering, Shreyas Neelaraddi">
-    <meta name="author" content="Shreyas Neelaraddi">
+    <title>Shreyas Neelaraddi | Cloud Architect & DevOps Engineer</title>
+    <meta name="description" content="Cloud & DevOps Engineer specializing in AWS, Kubernetes, and automated infrastructure.">
     
-    <link rel="canonical" href="https://shreyasneelaraddi.github.io/">
+    <!-- SEO & Open Graph -->
+    <meta property="og:title" content="Shreyas Neelaraddi | DevOps Engineer">
+    <meta property="og:description" content="Portfolio of a Cloud & DevOps Engineer specializing in AWS, Kubernetes, and CI/CD automation.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
     
     <style>
+        /* --- Core Variables & Reset --- */
         :root {
-            --primary: #00ff88;
-            --secondary: #00d4ff;
-            --accent: #ff00ff;
-            --warning: #ffaa00;
-            --danger: #ff4444;
-            --success: #00ff88;
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --text-tertiary: #666666;
-            --border: #2a2a2a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-base: #030303;
+            --bg-card: #0A0A0A;
+            --accent: #10b981;
+            --accent-secondary: #06b6d4;
+            --text-main: #e5e5e5;
         }
 
-        [data-theme="light"] {
-            --bg-primary: #f5f5f5;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #eaeaea;
-            --text-primary: #121212;
-            --text-secondary: #424242;
-            --text-tertiary: #757575;
-            --border: #e0e0e0;
-            --glass: rgba(0, 0, 0, 0.05);
-            --glass-border: rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-        }
-
-        ::selection {
-            background: var(--primary);
-            color: var(--bg-primary);
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+    
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
             overflow-x: hidden;
-            cursor: default; 
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Custom Cursor */
-        @media (hover: hover) and (pointer: fine) {
-            body {
-                cursor: none;
-            }
-            
-            .cursor {
-                width: 20px;
-                height: 20px;
-                border: 2px solid var(--primary);
-                border-radius: 50%;
-                position: fixed;
-                pointer-events: none;
-                z-index: 9999;
-                transition: transform 0.1s ease;
-                mix-blend-mode: difference;
-                display: block;
-            }
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar { width: 6px; background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::selection { background: rgba(16, 185, 129, 0.3); color: white; }
 
-            .cursor-follower {
-                width: 40px;
-                height: 40px;
-                background: radial-gradient(circle, rgba(0, 255, 136, 0.1), transparent);
-                border-radius: 50%;
-                position: fixed;
-                pointer-events: none;
-                z-index: 9998;
-                transition: transform 0.3s ease;
-                display: block;
-            }
+        /* --- Preloader --- */
+        #preloader {
+            position: fixed; inset: 0; z-index: 9999; background: #000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.3s ease-out; /* Faster transition */
+        }
+        .loader-spinner {
+            width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--accent); border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-            .cursor.hover {
-                transform: scale(2);
-                background: var(--primary);
-            }
+        /* --- Scroll Progress Bar --- */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-secondary)); z-index: 9999; width: 0%;
         }
 
-        .cursor, .cursor-follower {
-            display: none;
+        /* --- Noise Texture --- */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 1000;
         }
 
-        /* Loader */
-        .loader-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-            min-height: 100vh;
+        /* --- Grid Background --- */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
-        .loader-wrapper.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .pipeline-loader {
-            position: relative;
-            width: 300px;
-            height: 200px;
-        }
-
-        .pipeline-stage {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            font-size: 1.5rem;
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .pipeline-stage.active {
-            background: var(--primary);
-            color: var(--bg-primary);
-            transform: scale(1.1);
-            box-shadow: 0 0 30px var(--primary);
-        }
-
-        .stage-1 { top: 0; left: 0; animation: stageGlow 1.5s infinite; }
-        .stage-2 { top: 0; left: 60px; animation: stageGlow 1.5s infinite 0.3s; }
-        .stage-3 { top: 0; left: 120px; animation: stageGlow 1.5s infinite 0.6s; }
-        .stage-4 { top: 0; left: 180px; animation: stageGlow 1.5s infinite 0.9s; }
-        .stage-5 { top: 0; left: 240px; animation: stageGlow 1.5s infinite 1.2s; }
-
-        @keyframes stageGlow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-
-        .pipeline-connector {
-            position: absolute;
-            top: 30px;
-            width: 2px;
-            height: 30px;
-            background: linear-gradient(to bottom, var(--primary), transparent);
-            opacity: 0.3;
-        }
-
-        .connector-1 { left: 55px; }
-        .connector-2 { left: 115px; }
-        .connector-3 { left: 175px; }
-        .connector-4 { left: 235px; }
-
-        .pipeline-flow {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--primary);
-            animation: flowAnimation 3s infinite;
-        }
-
-        @keyframes flowAnimation {
-            0% { left: 30px; top: 60px; opacity: 0; }
-            10% { opacity: 1; }
-            20% { left: 90px; top: 30px; }
-            40% { left: 150px; top: 30px; }
-            60% { left: 210px; top: 30px; }
-            80% { left: 270px; top: 30px; }
-            90% { opacity: 1; }
-            100% { left: 270px; top: 120px; opacity: 0; }
-        }
-
-        .loader-text {
-            font-family: 'Fira Code', monospace;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            text-align: center;
-            margin-bottom: 20px;
-            min-height: 1.5em;
-        }
-
-        .loader-progress {
-            width: 300px;
-            height: 4px;
-            background: var(--border);
-            overflow: hidden;
-            border-radius: 2px;
-            position: relative;
-        }
-
-        .loader-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            width: 0%;
-            transition: width 0.2s linear;
-            border-radius: 2px;
-            position: relative;
-        }
-
-        .loader-progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 10px;
-            height: 100%;
-            background: white;
-            opacity: 0.8;
-            filter: blur(2px);
-            animation: shimmer 1s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(300px); }
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            background: rgba(0, 255, 136, 0.1);
-        }
-
-        .theme-toggle i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover i {
-            transform: rotate(180deg);
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 20px 5%;
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.95), transparent);
+        /* --- Glassmorphism & Cards --- */
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.5);
         }
-
-        nav.scrolled {
-            background: rgba(10, 10, 10, 0.98);
-            padding: 15px 5%;
-            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-3d {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            position: relative;
+        
+        .tilt-card {
             transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-3d:hover {
-            transform: rotateY(10deg) rotateX(-10deg);
-        }
-
-        .logo-3d i {
-            font-size: 2.5rem;
-            animation: logoGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% { text-shadow: 0 0 10px var(--primary); }
-            50% { text-shadow: 0 0 30px var(--primary), 0 0 50px var(--secondary); }
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            position: relative;
-            transition: color 0.3s ease;
-            padding: 10px 0;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .nav-link:hover::before {
-            width: 100%;
-        }
-
-        .nav-link.active {
-            color: var(--primary);
-        }
-
-        .nav-link.active::before {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 2px;
-            background: var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            background: radial-gradient(ellipse at center, rgba(0, 255, 136, 0.05), transparent);
-        }
-
-        #particles-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .hero-container {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-            max-width: 1400px;
-            padding: 0 20px;
-            z-index: 2;
-            position: relative;
-        }
-
-        .hero-profile-3d {
-            position: relative;
-            flex-shrink: 0;
-            transform-style: preserve-3d;
-            animation: profileRotate 20s infinite linear;
-        }
-
-        @keyframes profileRotate {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-
-        .profile-image-wrapper-3d {
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid var(--primary);
-            box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
-            position: relative;
-            animation: profileGlow 3s ease-in-out infinite;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes profileGlow {
-            0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.3); }
-            50% { box-shadow: 0 0 80px rgba(0, 255, 136, 0.6), 0 0 120px rgba(0, 212, 255, 0.4); }
-        }
-
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .profile-image-wrapper-3d:hover .profile-image {
-            transform: scale(1.1);
-        }
-
-        .status-indicator-3d {
-            position: absolute;
-            bottom: 25px;
-            right: 25px;
-            width: 35px;
-            height: 35px;
-            background: var(--success);
-            border: 4px solid var(--bg-primary);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 20px var(--success);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .hero-content-3d {
-            flex: 1;
-            text-align: left;
-            transform-style: preserve-3d;
-        }
-
-        .hero-title-3d {
-            font-size: clamp(3.5rem, 8vw, 6rem);
-            font-weight: 900;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 3s ease infinite;
-            line-height: 1.1;
-            text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(30deg); }
-        }
-
-        .hero-subtitle-3d {
-            font-size: 2rem;
-            color: var(--text-secondary);
-            margin-bottom: 35px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.5s forwards;
-            font-weight: 600;
-        }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-            from { opacity: 0; transform: translateY(30px); }
-        }
-
-        .hero-description-3d {
-            font-size: 1.3rem;
-            color: var(--text-tertiary);
-            margin-bottom: 50px;
-            max-width: 700px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.7s forwards;
-            line-height: 1.6;
-        }
-
-        .hero-buttons-3d {
-            display: flex;
-            gap: 25px;
-            flex-wrap: wrap;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.9s forwards;
-        }
-
-        .btn-3d {
-            padding: 18px 45px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .btn-3d-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--bg-primary);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
-        }
-
-        .btn-3d-secondary {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-3d::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
-
-        .btn-3d:hover::before {
-            width: 400px;
-            height: 400px;
-        }
-
-        .btn-3d:hover {
-            transform: translateY(-8px) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
-        }
-
-        /* Industry Stats Section */
-        .industry-stats {
-            padding: 80px 5%;
-            background: var(--bg-secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .industry-stats::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(0,255,136,0.03)" stroke-width="0.5"/></svg>');
-            opacity: 0.5;
-        }
-
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 30px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.05), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .stat-label {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-
-        /* Section Styles */
-        section {
-            padding: 120px 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-header-3d {
-            text-align: center;
-            margin-bottom: 80px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title-3d {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            display: inline-block;
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-
-        .section-title-3d:hover {
-            transform: rotateY(10deg);
-        }
-
-        .section-title-3d::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-        }
-
-        .section-subtitle-3d {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Terminal Section */
-        .terminal-section-3d {
-            background: var(--bg-secondary);
-        }
-
-        .terminal-section-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(0,255,136,0.03)" stroke-width="0.5"/></svg>');
-            opacity: 0.5;
-        }
-
-        .terminal-container-3d {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--bg-tertiary);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--border);
-            position: relative;
-            z-index: 2;
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-
-        .terminal-container-3d:hover {
-            transform: rotateX(2deg) rotateY(-2deg);
-        }
-
-        .terminal-header-3d {
-            background: var(--bg-primary);
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .terminal-dot-3d {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .terminal-dot-3d:hover {
-            transform: scale(1.2);
-        }
-
-        .terminal-dot-3d.red { background: #ff5f56; }
-        .terminal-dot-3d.yellow { background: #ffbd2e; }
-        .terminal-dot-3d.green { background: #27c93f; }
-
-        .terminal-title-3d {
-            flex: 1;
-            text-align: center;
-            color: var(--text-tertiary);
-            font-family: 'Fira Code', monospace;
-            font-size: 1rem;
-        }
-
-        .terminal-body-3d {
-            padding: 40px;
-            font-family: 'Fira Code', monospace;
-            min-height: 500px;
-            position: relative;
-        }
-
-        .terminal-line-3d {
-            margin: 20px 0;
-            opacity: 0;
-            animation: terminalFadeIn 0.5s forwards;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes terminalFadeIn {
-            to { opacity: 1; }
-        }
-
-        .terminal-prompt-3d {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .terminal-command-3d {
-            color: var(--text-primary);
-            margin-left: 15px;
-            font-size: 1.1rem;
-        }
-
-        .terminal-output-3d {
-            color: var(--text-secondary);
-            margin-left: 40px;
-            line-height: 1.8;
-            font-size: 1rem;
-        }
-
-        .terminal-cursor-3d {
-            display: inline-block;
-            width: 12px;
-            height: 24px;
-            background: var(--primary);
-            animation: blink 1s infinite;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        /* Skills Section */
-        .skills-section-3d {
-            background: var(--bg-primary);
-        }
-
-        .skills-section-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.05), transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.05), transparent 50%);
-            z-index: 1;
-        }
-
-        .skills-container-3d {
-            position: relative;
-            z-index: 2;
-        }
-
-        .skills-filter {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: var(--primary);
-            color: var(--bg-primary);
-            transform: translateY(-3px);
-        }
-
-        .skills-grid-3d {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 80px;
-        }
-
-        .skill-card-3d {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 40px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .skill-card-3d::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .skill-card-3d:hover::before {
-            opacity: 1;
-        }
-
-        .skill-card-3d:hover {
-            transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
-            border-color: var(--primary);
-            box-shadow: 0 30px 60px rgba(0, 255, 136, 0.3);
-        }
-
-        .skill-icon-3d {
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin-bottom: 30px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-        }
-
-        .skill-card-3d:hover .skill-icon-3d {
-            transform: scale(1.2) rotateY(360deg);
-        }
-
-        .skill-title-3d {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--text-primary);
-        }
-
-        .skill-item-3d {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-        }
-
-        .skill-item-3d:hover {
-            background: rgba(0, 255, 136, 0.1);
-            transform: translateX(10px) rotateZ(2deg);
-        }
-
-        .skill-name-3d {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .skill-level-3d {
-            display: flex;
-            gap: 5px;
-        }
-
-        .skill-dot-3d {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .skill-dot-3d.filled {
-            background: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
-        }
-
-        /* Projects Section */
-        .projects-section-3d {
-            background: var(--bg-secondary);
-        }
-
-        .projects-section-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(0,212,255,0.03)" stroke-width="0.5"/></svg>');
-            opacity: 0.5;
-        }
-
-        .projects-container-3d {
-            position: relative;
-            z-index: 2;
-        }
-
-        .projects-filter {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-
-        .projects-grid-3d {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 50px;
-            margin-top: 80px;
-        }
-
-        .project-card-3d {
-            background: var(--bg-tertiary);
-            border-radius: 25px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            position: relative;
-            border: 1px solid var(--border);
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-
-        .project-card-3d:hover {
-            transform: translateY(-20px) rotateX(5deg) rotateY(-5deg);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            border-color: var(--primary);
-        }
-
-        .project-image-container-3d {
-            height: 250px;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-        }
-
-        .project-image-3d {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
-        }
-
-        .project-card-3d:hover .project-image-3d {
-            transform: scale(1.1);
-        }
-
-        .project-overlay-3d {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            display: flex;
-            align-items: flex-end;
-            padding: 30px;
-        }
-
-        .project-card-3d:hover .project-overlay-3d {
-            opacity: 1;
-        }
-
-        .project-quick-view-3d {
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .project-content-3d {
-            padding: 40px;
-        }
-
-        .project-title-3d {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .project-description-3d {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            line-height: 1.7;
-            font-size: 1.1rem;
-        }
-
-        .project-tech-3d {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .tech-badge-3d {
-            padding: 10px 20px;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: 25px;
-            font-size: 1rem;
-            color: var(--primary);
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .tech-badge-3d:hover {
-            background: var(--primary);
-            color: var(--bg-primary);
-            transform: scale(1.1) rotateZ(5deg);
-        }
-
-        .project-links-3d {
-            display: flex;
-            gap: 25px;
-        }
-
-        .project-link-3d {
-            color: var(--text-secondary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .project-link-3d:hover {
-            color: var(--primary);
-            transform: translateX(8px);
-        }
-
-        /* Experience Timeline */
-        .experience-section-3d {
-            background: var(--bg-primary);
-        }
-
-        .experience-container-3d {
-            position: relative;
-            z-index: 2;
-        }
-
-        .timeline-3d {
-            position: relative;
-            max-width: 1200px;
-            margin: 80px auto 0;
-        }
-
-        .timeline-3d::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--primary);
-            left: 50%;
-            margin-left: -2px;
-            border-radius: 2px;
-        }
-
-        .timeline-item-3d {
-            position: relative;
-            margin-bottom: 80px;
-            width: 100%;
-        }
-
-        .timeline-item-3d:nth-child(odd) {
-            padding-right: calc(50% + 40px);
-            text-align: right;
-        }
-
-        .timeline-item-3d:nth-child(even) {
-            padding-left: calc(50% + 40px);
-        }
-
-        .timeline-content-3d {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 30px;
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .timeline-content-3d:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
-        }
-
-        .timeline-date-3d {
-            color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: block;
-            font-size: 1.1rem;
-        }
-
-        .timeline-title-3d {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .timeline-subtitle-3d {
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .timeline-description-3d {
-            color: var(--text-tertiary);
-            line-height: 1.6;
-        }
-
-        .timeline-description-3d ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .timeline-description-3d li {
-            margin: 12px 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .timeline-description-3d li i {
-            color: var(--success);
-            margin-top: 3px;
-        }
-
-        .timeline-icon-3d {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-primary);
-            font-size: 1.2rem;
-            top: 15px;
-            z-index: 1;
-        }
-
-        .timeline-item-3d:nth-child(odd) .timeline-icon-3d {
-            right: -60px;
-        }
-
-        .timeline-item-3d:nth-child(even) .timeline-icon-3d {
-            left: -60px;
-        }
-
-        /* Education Section */
-        .education-section-3d {
-            background: var(--bg-secondary);
-        }
-
-        .education-container-3d {
-            position: relative;
-            z-index: 2;
-        }
-
-        .education-grid-3d {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .education-card-3d {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .education-card-3d::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.05), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .education-card-3d:hover::before {
-            opacity: 1;
-        }
-
-        .education-card-3d:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .education-icon-3d {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .education-degree-3d {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .education-institution-3d {
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .education-details-3d {
-            color: var(--text-tertiary);
-        }
-
-        /* Certificates Section */
-        .certificates-section-3d {
-            background: var(--bg-primary);
-        }
-
-        .certificates-container-3d {
-            position: relative;
-            z-index: 2;
-        }
-
-        .certificates-grid-3d {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .certificate-card-3d {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .certificate-card-3d::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.05), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .certificate-card-3d:hover::before {
-            opacity: 1;
-        }
-
-        .certificate-card-3d:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .certificate-icon-3d {
-            font-size: 3rem;
-            color: var(--success);
-            margin-bottom: 20px;
-        }
-
-        .certificate-title-3d {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .certificate-issuer-3d {
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .certificate-date-3d {
-            color: var(--text-tertiary);
-        }
-
-        /* Contact Section */
-        .contact-section-3d {
-            background: var(--bg-secondary);
-        }
-
-        .contact-container-3d {
-            position: relative;
-            z-index: 2;
-        }
-
-        .contact-form-3d {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 60px;
-            max-width: 900px;
-            margin: 0 auto;
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-form-3d:hover {
-            transform: rotateX(2deg);
-        }
-
-        .form-group-3d {
-            margin-bottom: 35px;
-        }
-
-        .form-label-3d {
-            display: block;
-            margin-bottom: 15px;
-            color: var(--text-secondary);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .form-input-3d,
-        .form-textarea-3d {
-            width: 100%;
-            padding: 20px;
-            background: var(--bg-tertiary);
-            border: 2px solid var(--border);
-            border-radius: 15px;
-            color: var(--text-primary);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-input-3d:focus,
-        .form-textarea-3d:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .form-textarea-3d {
-            min-height: 200px;
-            resize: vertical;
-        }
-
-        .submit-btn-3d {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 15px;
-            color: var(--bg-primary);
-            font-weight: 800;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .submit-btn-3d:hover {
-            transform: translateY(-5px) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
-        }
-
-        /* Footer */
-        footer {
-            padding: 80px 5%;
-            background: var(--bg-primary);
-            border-top: 1px solid var(--border);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.05), transparent);
-        }
-
-        .footer-content-3d {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .social-links-3d {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
-        }
-
-        .social-link-3d {
-            width: 70px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
-            transform-style: preserve-3d;
-        }
-
-        .social-link-3d:hover {
-            background: var(--primary);
-            color: var(--bg-primary);
-            transform: translateY(-10px) rotateY(180deg);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.4);
-        }
-
-        /* Scroll Progress */
-        .scroll-progress-3d {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(0, 255, 136, 0.1);
-            z-index: 9999;
-        }
-
-        .scroll-progress-bar-3d {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0%;
-            transition: width 0.1s ease;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        /* Image Placeholder */
-        .image-placeholder-3d {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-size: 1.3rem;
-            font-weight: 700;
-            flex-direction: column;
-        }
-
-        /* Toast Notification */
-        .toast-3d {
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            transform: translateX(600px);
-            transition: transform 0.4s ease;
-            z-index: 1000;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .toast-3d.show {
-            transform: translateX(0);
-        }
-
-        .toast-icon-3d {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .toast-message-3d {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        /* Animations */
-        .fade-in-3d {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in-3d.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Project Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid var(--border);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--danger);
-        }
-
-        .modal-header {
-            margin-bottom: 30px;
-        }
-
-        .modal-title {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .modal-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .modal-tech-tag {
-            padding: 8px 16px;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .modal-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-
-        .modal-features {
-            margin-bottom: 30px;
-        }
-
-        .modal-features h3 {
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .modal-features ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .modal-features li {
-            margin: 10px 0;
-            padding-left: 30px;
-            position: relative;
-            color: var(--text-secondary);
-        }
-
-        .modal-features li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
-
-        .modal-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .modal-link {
-            padding: 12px 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 30px;
-            color: var(--bg-primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease;
-        }
-
-        .modal-link:hover {
-            transform: translateY(-3px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-container {
-                flex-direction: column;
-                text-align: center;
-                gap: 50px;
-            }
-
-            .hero-content-3d {
-                text-align: center;
-            }
-
-            .profile-image-wrapper-3d {
-                width: 300px;
-                height: 300px;
-            }
-
-            .hero-title-3d {
-                font-size: 3.5rem;
-            }
-
-            .timeline-3d::before {
-                left: 30px;
-            }
-
-            .timeline-item-3d:nth-child(odd),
-            .timeline-item-3d:nth-child(even) {
-                padding: 0;
-                padding-left: 70px;
-                text-align: left;
-            }
-
-            .timeline-item-3d:nth-child(odd) .timeline-icon-3d,
-            .timeline-item-3d:nth-child(even) .timeline-icon-3d {
-                left: 10px;
-                right: auto;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: var(--bg-primary);
-                flex-direction: column;
-                padding: 50px 20px;
-                transition: left 0.3s ease;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .projects-grid-3d {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid-3d {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title-3d {
-                font-size: 3rem;
-            }
-
-            .modal-content {
-                padding: 20px;
-                margin: 20px;
-            }
-
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title-3d { font-size: 2.8rem; }
-            .hero-subtitle-3d { font-size: 1.5rem; }
-            .hero-description-3d { font-size: 1.1rem; }
-            .hero-buttons-3d { flex-direction: column; gap: 15px; }
-            .btn-3d { width: 100%; justify-content: center; }
-            .section-title-3d { font-size: 2.5rem; }
-            .stats-container { grid-template-columns: 1fr; }
-        }
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .tilt-card:hover {
+            transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(16, 185, 129, 0.2);
+        }
+
+        /* --- Animations --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.1); }
+            50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        
+        /* --- Flow Line --- */
+        @keyframes movePacket {
+            0% { left: -20px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+        .flow-packet { position: absolute; top: 50%; left: 0; width: 20px; height: 2px; background: var(--accent); box-shadow: 0 0 10px var(--accent); transform: translateY(-50%); animation: movePacket 4s linear infinite; z-index: 0; }
     </style>
 </head>
-<body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+<body class="grid-bg">
 
-    <!-- GitHub Pages Fork Ribbon -->
-    <a href="https://github.com/shreyasneelaraddi/shreyasneelaraddi.github.io" class="github-ribbon">
-        <img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" alt="Fork me on GitHub">
-    </a>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+    </div>
 
     <!-- Scroll Progress -->
-    <div class="scroll-progress-3d">
-        <div class="scroll-progress-bar-3d" id="scrollProgress"></div>
-    </div>
-
-    <!-- Industry-Ready DevOps Loading Screen -->
-    <div class="loader-wrapper" id="loader">
-        <div class="loader-content">
-            <div class="pipeline-loader">
-                <div class="pipeline-stage stage-1" title="Code">
-                    <i class="fas fa-code"></i>
-                </div>
-                <div class="pipeline-connector connector-1"></div>
-                <div class="pipeline-stage stage-2" title="Build">
-                    <i class="fas fa-hammer"></i>
-                </div>
-                <div class="pipeline-connector connector-2"></div>
-                <div class="pipeline-stage stage-3" title="Test">
-                    <i class="fas fa-vial"></i>
-                </div>
-                <div class="pipeline-connector connector-3"></div>
-                <div class="pipeline-stage stage-4" title="Deploy">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <div class="pipeline-connector connector-4"></div>
-                <div class="pipeline-stage stage-5" title="Monitor">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="pipeline-flow"></div>
-            </div>
-            <div class="loader-text" id="loaderText">Initializing DevOps Pipeline...</div>
-            <div class="loader-progress">
-                <div class="loader-progress-bar"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Theme Toggle -->
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon" id="themeIcon"></i>
-    </div>
+    <div id="scroll-progress"></div>
 
     <!-- Navigation -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="logo-3d">
-                <i class="fas fa-terminal"></i>
-                SN
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-emerald-500 group-hover:border-emerald-500/50 transition-all">
+                    <i class="fas fa-terminal text-lg"></i>
+                </div>
+                <span class="text-xl font-bold tracking-tighter">Shreyas<span class="text-emerald-500">_</span></span>
             </a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#stats" class="nav-link">Stats</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#certificates" class="nav-link">Certificates</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="Shreyas%20N%20Resume.pdf" download class="hidden md:block px-5 py-2.5 rounded-md bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-lg shadow-white/5">
+                    Resume
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-white text-2xl z-50">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <canvas id="particles-canvas"></canvas>
-        <div class="hero-container">
-            <div class="hero-profile-3d">
-                <div class="profile-image-wrapper-3d">
-                    <img src="images/Shreyas%20N.png" 
-                         alt="Shreyas Neelaraddi" 
-                         class="profile-image" 
-                         onerror="this.onerror=null;this.src='https://picsum.photos/seed/shreyas/350/350';">
-                    <div class="status-indicator-3d" title="Available for opportunities"></div>
-                </div>
-            </div>
-            <div class="hero-content-3d">
-                <h1 class="hero-title-3d">Shreyas Neelaraddi</h1>
-                <p class="hero-subtitle-3d">AI/ML & DevOps Engineer</p>
-                <p class="hero-description-3d">
-                    Building scalable AI solutions and robust DevOps pipelines. 
-                    Specializing in Python, Docker, Kubernetes, Terraform, and AWS. 
-                    Experienced in developing real-world applications with Generative AI, 
-                    LLMs, and MLOps workflows.
-                </p>
-                <div class="hero-buttons-3d">
-                    <a href="Shreyas%20N%20Resume.pdf" download class="btn-3d btn-3d-primary">
-                        <i class="fas fa-file-download"></i>
-                        Download CV
-                    </a>
-                    <a href="#projects" class="btn-3d btn-3d-secondary">
-                        <i class="fas fa-rocket"></i>
-                        View Projects
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 hidden bg-black/95 flex-col items-center justify-center gap-8 text-3xl font-bold backdrop-blur-lg">
+        <a href="#about" class="hover:text-emerald-500 transition-colors mobile-link">About</a>
+        <a href="#skills" class="hover:text-emerald-500 transition-colors mobile-link">Skills</a>
+        <a href="#projects" class="hover:text-emerald-500 transition-colors mobile-link">Projects</a>
+        <a href="#experience" class="hover:text-emerald-500 transition-colors mobile-link">Experience</a>
+        <a href="#contact" class="hover:text-emerald-500 transition-colors mobile-link">Contact</a>
+    </div>
 
-    <!-- Industry Stats Section -->
-    <section class="industry-stats" id="stats">
-        <div class="section-header-3d fade-in-3d">
-            <h2 class="section-title-3d">Industry Impact</h2>
-            <p class="section-subtitle-3d">Metrics that matter</p>
-        </div>
-        <div class="stats-container">
-            <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="2">0</div>
-                <div class="stat-label">Industry Internships</div>
-            </div>
-            <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="4">0</div>
-                <div class="stat-label">Major AI Projects</div>
-            </div>
-            <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="8">0</div>
-                <div class="stat-label">Engineering CGPA</div>
-            </div>
-            <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="15">0</div>
-                <div class="stat-label">DevOps & AI Tools</div>
-            </div>
-            <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="100">0</div>
-                <div class="stat-label">Commitment %</div>
-            </div>
-            <div class="stat-card fade-in-3d">
-                <div class="stat-number" data-target="3">0</div>
-                <div class="stat-label">Certifications</div>
-            </div>
-        </div>
-    </section>
+    <main class="relative">
+        
+        <!-- HERO SECTION -->
+        <section id="about" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+            <!-- Background Orbs -->
+            <div class="absolute top-1/4 left-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full filter blur-[120px] opacity-30 animate-float"></div>
+            <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyan-500/10 rounded-full filter blur-[150px] opacity-20 animate-float" style="animation-delay: 2s;"></div>
 
-    <!-- Terminal Section -->
-    <section class="terminal-section-3d" id="about">
-        <div class="section-header-3d fade-in-3d">
-            <h2 class="section-title-3d">System Information</h2>
-            <p class="section-subtitle-3d">A closer look at my professional profile</p>
-        </div>
-        <div class="terminal-container-3d fade-in-3d">
-            <div class="terminal-header-3d">
-                <div class="terminal-dot-3d red"></div>
-                <div class="terminal-dot-3d yellow"></div>
-                <div class="terminal-dot-3d green"></div>
-                <div class="terminal-title-3d">shreyas@portfolio: ~</div>
-            </div>
-            <div class="terminal-body-3d" id="terminal">
-                <!-- Content populated by JS for typewriter effect -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills-section-3d" id="skills">
-        <div class="skills-container-3d">
-            <div class="section-header-3d fade-in-3d">
-                <h2 class="section-title-3d">Technical Arsenal</h2>
-                <p class="section-subtitle-3d">Technologies and tools I master</p>
-            </div>
-            <div class="skills-filter">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="devops">DevOps & Cloud</button>
-                <button class="filter-btn" data-filter="ai">AI/ML & GenAI</button>
-                <button class="filter-btn" data-filter="programming">Programming</button>
-                <button class="filter-btn" data-filter="data">Data & Tools</button>
-            </div>
-            <div class="skills-grid-3d">
-                <div class="skill-card-3d fade-in-3d" data-category="devops">
-                    <div class="skill-icon-3d">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3 class="skill-title-3d">DevOps & Cloud</h3>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fab fa-aws" style="color: #ff9900;"></i> AWS</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fab fa-docker" style="color: #0db7ed;"></i> Docker</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-dharmachakra" style="color: #326ce5;"></i> Kubernetes</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fab fa-jenkins" style="color: #d33833;"></i> Jenkins</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-cubes" style="color: #7b42bc;"></i> Terraform</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-cogs" style="color: #ff4444;"></i> Ansible</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                </div>
-
-                <div class="skill-card-3d fade-in-3d" data-category="ai">
-                    <div class="skill-icon-3d">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3 class="skill-title-3d">AI / ML / GenAI</h3>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fab fa-python" style="color: #ffde57;"></i> Python</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-robot" style="color: var(--primary);"></i> OpenAI & Gemini</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-link" style="color: var(--secondary);"></i> LangChain</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-network-wired" style="color: var(--accent);"></i> RAG Workflows</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-database" style="color: #e6522c;"></i> FAISS & Pinecone</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-fire" style="color: #ff6f00;"></i> TensorFlow & PyTorch</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                </div>
-
-                <div class="skill-card-3d fade-in-3d" data-category="data">
-                    <div class="skill-icon-3d">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3 class="skill-title-3d">Data & Analytics</h3>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-table" style="color: #4479a1;"></i> SQL</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-layer-group" style="color: #47a248;"></i> Power BI & Tableau</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-cube" style="color: #40916c;"></i> MongoDB</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-database" style="color: #00758f;"></i> PostgreSQL</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                </div>
-
-                <div class="skill-card-3d fade-in-3d" data-category="programming">
-                    <div class="skill-icon-3d">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3 class="skill-title-3d">Programming</h3>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fab fa-js" style="color: #f7df1e;"></i> JavaScript</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fab fa-html5" style="color: #e34c26;"></i> HTML / CSS</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-terminal" style="color: var(--text-primary);"></i> Bash</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                </div>
-
-                <div class="skill-card-3d fade-in-3d" data-category="data">
-                    <div class="skill-icon-3d">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3 class="skill-title-3d">Tools & Monitoring</h3>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fab fa-git-alt" style="color: #f05032;"></i> Git</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-fire" style="color: #e6522c;"></i> Prometheus</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                    <div class="skill-item-3d">
-                        <span class="skill-name-3d"><i class="fas fa-tachometer-alt" style="color: #f46800;"></i> Grafana</span>
-                        <div class="skill-level-3d"><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d filled"></span><span class="skill-dot-3d"></span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects-section-3d" id="projects">
-        <div class="projects-container-3d">
-            <div class="section-header-3d fade-in-3d">
-                <h2 class="section-title-3d">Featured Projects</h2>
-                <p class="section-subtitle-3d">Innovative solutions I've built</p>
-            </div>
-            <div class="projects-filter">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="devops">DevOps</button>
-                <button class="filter-btn" data-filter="ai">AI/ML</button>
-            </div>
-            <div class="projects-grid-3d">
-                <!-- Project 1 -->
-                <div class="project-card-3d fade-in-3d" data-category="devops" data-project="cicd">
-                    <div class="project-image-container-3d">
-                        <img src="images/project-cicd.png" alt="CI/CD Pipeline Automation" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/cicd/600/400';">
-                        <div class="project-overlay-3d">
-                            <div class="project-quick-view-3d">
-                                <i class="fas fa-eye"></i> Quick View: Automated deployment pipeline
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content-3d">
-                        <h3 class="project-title-3d">CI/CD Pipeline Automation</h3>
-                        <p class="project-description-3d">
-                            End-to-end CI/CD pipeline for Flask applications with automated build, test, and deploy processes. 
-                            Integrated monitoring and infrastructure as code for complete automation.
-                        </p>
-                        <div class="project-tech-3d">
-                            <span class="tech-badge-3d">Jenkins</span>
-                            <span class="tech-badge-3d">Docker</span>
-                            <span class="tech-badge-3d">Kubernetes</span>
-                            <span class="tech-badge-3d">Terraform</span>
-                        </div>
-                        <div class="project-links-3d">
-                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card-3d fade-in-3d" data-category="ai" data-project="resume-screener">
-                    <div class="project-image-container-3d">
-                        <img src="images/project-resume-ai.png" alt="AI Resume Screening Assistant" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/resume/600/400';">
-                        <div class="project-overlay-3d">
-                            <div class="project-quick-view-3d">
-                                <i class="fas fa-eye"></i> Quick View: GPT-powered resume analysis
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content-3d">
-                        <h3 class="project-title-3d">AI Resume Screening Assistant</h3>
-                        <p class="project-description-3d">
-                            GPT-powered resume screening tool with RAG implementation for context-aware analysis. 
-                            Features automated feedback generation and interview preparation assistance.
-                        </p>
-                        <div class="project-tech-3d">
-                            <span class="tech-badge-3d">OpenAI API</span>
-                            <span class="tech-badge-3d">LangChain</span>
-                            <span class="tech-badge-3d">RAG</span>
-                            <span class="tech-badge-3d">Docker Compose</span>
-                        </div>
-                        <div class="project-links-3d">
-                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card-3d fade-in-3d" data-category="ai" data-project="sales-analytics">
-                    <div class="project-image-container-3d">
-                        <img src="images/project-sales-analytics.png" alt="AI Sales Analytics Dashboard" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sales/600/400';">
-                        <div class="project-overlay-3d">
-                            <div class="project-quick-view-3d">
-                                <i class="fas fa-eye"></i> Quick View: ML forecasting system
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content-3d">
-                        <h3 class="project-title-3d">AI Sales Analytics Dashboard</h3>
-                        <p class="project-description-3d">
-                            ML-based sales forecasting system with automated data processing and dashboard refresh workflows. 
-                            Deployed on AWS EC2 using Docker and CI/CD.
-                        </p>
-                        <div class="project-tech-3d">
-                            <span class="tech-badge-3d">Python</span>
-                            <span class="tech-badge-3d">Power BI</span>
-                            <span class="tech-badge-3d">AWS</span>
-                            <span class="tech-badge-3d">Docker</span>
-                        </div>
-                        <div class="project-links-3d">
-                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="project-card-3d fade-in-3d" data-category="ai" data-project="healthcare">
-                    <div class="project-image-container-3d">
-                        <img src="images/project-healthcare.png" alt="Healthcare Risk Prediction" class="project-image-3d" onerror="this.onerror=null;this.src='https://picsum.photos/seed/health/600/400';">
-                        <div class="project-overlay-3d">
-                            <div class="project-quick-view-3d">
-                                <i class="fas fa-eye"></i> Quick View: Risk prediction model
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content-3d">
-                        <h3 class="project-title-3d">Healthcare Risk Prediction</h3>
-                        <p class="project-description-3d">
-                            Developed ensemble ML models for healthcare risk prediction using scikit-learn. 
-                            Built and deployed a Streamlit-based application using Docker and Ansible.
-                        </p>
-                        <div class="project-tech-3d">
-                            <span class="tech-badge-3d">scikit-learn</span>
-                            <span class="tech-badge-3d">Streamlit</span>
-                            <span class="tech-badge-3d">Docker</span>
-                            <span class="tech-badge-3d">Ansible</span>
-                        </div>
-                        <div class="project-links-3d">
-                            <a href="#" class="project-link-3d"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                            <a href="#" class="project-link-3d"><i class="fab fa-github"></i> Source Code</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="experience-section-3d" id="experience">
-        <div class="experience-container-3d">
-            <div class="section-header-3d fade-in-3d">
-                <h2 class="section-title-3d">Professional Journey</h2>
-                <p class="section-subtitle-3d">My career timeline and achievements</p>
-            </div>
-            <div class="timeline-3d">
-                <!-- Internship 1: VTU -->
-                <div class="timeline-item-3d fade-in-3d">
-                    <div class="timeline-icon-3d">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="timeline-content-3d">
-                        <span class="timeline-date-3d">Oct 2024 – Feb 2025</span>
-                        <h3 class="timeline-title-3d">AI/ML Intern</h3>
-                        <p class="timeline-subtitle-3d">VTU WIINNR (IT Ignition Program)</p>
-                        <div class="timeline-description-3d">
-                            <ul>
-                                <li><i class="fas fa-check-circle"></i> Designed automated ML training and deployment pipelines using Python and GitHub Actions.</li>
-                                <li><i class="fas fa-check-circle"></i> Containerized ML applications using Docker and deployed them on AWS.</li>
-                                <li><i class="fas fa-check-circle"></i> Implemented Infrastructure as Code (IaC) using Terraform and Ansible for automated provisioning.</li>
-                                <li><i class="fas fa-check-circle"></i> Designed monitoring dashboards using Prometheus and Grafana to track system health.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class="relative max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- Internship 2: Agnirva -->
-                <div class="timeline-item-3d fade-in-3d">
-                    <div class="timeline-icon-3d">
-                        <i class="fas fa-code"></i>
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-8 z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/5 border border-emerald-500/20 backdrop-blur-sm">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-[0.2em]">Available for Immediate Joining</span>
                     </div>
-                    <div class="timeline-content-3d">
-                        <!-- Date kept unchanged as requested -->
-                        <span class="timeline-date-3d">Oct 2025 – Dec 2025</span>
-                        <h3 class="timeline-title-3d">AI Intern</h3>
-                        <p class="timeline-subtitle-3d">Agnirva (AI Internship Program – Fast Track)</p>
-                        <div class="timeline-description-3d">
-                            <ul>
-                                <li><i class="fas fa-check-circle"></i> Completed 100+ hours of intensive, hands-on AI work focused on real-world applications and GenAI workflows.</li>
-                                <li><i class="fas fa-check-circle"></i> Designed and optimized LLM prompt workflows using ChatGPT / Gemini for task automation and intelligent responses.</li>
-                                <li><i class="fas fa-check-circle"></i> Built a capstone AI use-case applying vector search and RAG concepts to deliver a functional, context-aware demo.</li>
-                                <li><i class="fas fa-check-circle"></i> Applied data preprocessing, experimentation, and prompt tuning to improve output accuracy and relevance.</li>
-                            </ul>
+
+                    <div class="space-y-4">
+                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1] text-transparent bg-clip-text bg-gradient-to-br from-white via-zinc-200 to-zinc-500">
+                            Shreyas<br>
+                            Neelaraddi
+                        </h1>
+                        <div class="flex items-center gap-3 text-zinc-400 text-lg font-mono pt-2">
+                            <span class="text-emerald-500">&gt;</span>
+                            <span>Cloud & DevOps Engineer</span>
+                            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                        </div>
+                    </div>
+
+                    <p class="text-lg text-zinc-400 leading-relaxed max-w-lg">
+                        I architect resilient cloud infrastructure and automated systems. 
+                        Specialized in <span class="text-white font-medium">AWS, Kubernetes</span>, and building deployment pipelines that scale.
+                    </p>
+
+                    <!-- FIX 10: Hero Add Line -->
+                    <p class="text-sm text-zinc-500 max-w-lg border-l-2 border-zinc-800 pl-3">
+                        Focused on building production-ready cloud systems with automation and observability.
+                    </p>
+
+                    <div class="flex flex-col gap-4 pt-2">
+                        <div class="flex items-center gap-4 text-zinc-300 group">
+                            <span class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors"><i class="fas fa-check"></i></span>
+                            <span>Built CI/CD pipelines on AWS using Docker & Kubernetes</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-zinc-300 group">
+                            <span class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors"><i class="fas fa-check"></i></span>
+                            <span>Automated infrastructure using Terraform & Ansible</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-zinc-300 group">
+                            <span class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors"><i class="fas fa-check"></i></span>
+                            <span>Implemented monitoring using Prometheus & Grafana</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 pt-6">
+                        <a href="#projects" class="relative inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-white text-black font-bold text-sm uppercase tracking-wide hover:bg-zinc-100 transition-all shadow-2xl shadow-white/10 group overflow-hidden">
+                            <span class="relative z-10">Explore Projects</span>
+                            <i class="fas fa-arrow-right relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="https://github.com/shreyasneelaraddi" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-zinc-900 text-white font-bold text-sm uppercase tracking-wide border border-zinc-700 hover:bg-zinc-800 transition-all">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Content: Profile & Terminal -->
+                <div class="lg:col-span-5 space-y-6 relative">
+                    <!-- Profile Image -->
+                    <div class="relative mx-auto w-72 h-72 md:w-80 md:h-80">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-cyan-500 rounded-2xl blur-2xl opacity-20 animate-pulse-glow"></div>
+                        <div class="relative rounded-2xl overflow-hidden border border-zinc-800 h-full shadow-2xl group">
+                            <img src="images/Shreyas%20N.png" 
+                                 onerror="this.src='https://z-cdn-media.chatglm.cn/files/4eaca01d-c5d6-4d88-b7ea-8c11ca9f8847.png?auth_key=1874150476-23512f1ed7e04471a56e105cea945f0e-0-355cf9ff035c974482b6d3aa24b33ee4'" 
+                                 alt="Shreyas Neelaraddi" 
+                                 class="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-700">
+                        </div>
+                        <!-- Floating Tech Badges -->
+                        <div class="absolute -right-4 bottom-12 bg-zinc-900 border border-zinc-800 rounded-lg p-2 shadow-xl animate-float" style="animation-delay: 0.2s;">
+                            <i class="fab fa-aws text-2xl text-yellow-400"></i>
+                        </div>
+                         <div class="absolute -left-4 top-12 bg-zinc-900 border border-zinc-800 rounded-lg p-2 shadow-xl animate-float" style="animation-delay: 0.5s;">
+                            <i class="fas fa-dharmachakra text-2xl text-blue-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Terminal -->
+                    <div class="relative glass-panel rounded-xl overflow-hidden shadow-2xl border border-zinc-800">
+                        <div class="bg-zinc-900/50 px-4 py-2 flex items-center gap-2 border-b border-zinc-800">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                            <span class="ml-4 text-[10px] text-zinc-500 font-mono">status.sh</span>
+                        </div>
+                        <div class="p-5 font-mono text-xs md:text-sm bg-black/30">
+                            <p class="text-emerald-400">$ terraform apply --auto-approve</p>
+                            <p class="text-zinc-500 mt-1">aws_instance.web: Creating...</p>
+                            <p class="text-zinc-500">aws_rds_cluster.main: Creating...</p>
+                            <br/>
+                            <p class="text-white font-bold">Apply complete! Resources: 12 added.</p>
+                            <p class="text-cyan-400 mt-2">$ <span class="typing-text">Ready to deploy.</span></p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Education Section -->
-    <section class="education-section-3d" id="education">
-        <div class="education-container-3d">
-            <div class="section-header-3d fade-in-3d">
-                <h2 class="section-title-3d">Education</h2>
-                <p class="section-subtitle-3d">My academic background</p>
-            </div>
-            <div class="education-grid-3d">
-                <div class="education-card-3d fade-in-3d">
-                    <div class="education-icon-3d">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="education-degree-3d">Bachelor of Engineering (CSE)</h3>
-                    <p class="education-institution-3d">Sri Sairam College of Engineering</p>
-                    <p class="education-details-3d">Bengaluru | 2021 – 2025 | CGPA: 8</p>
+        <!-- STATS STRIP -->
+        <section class="relative py-16 border-y border-zinc-800 bg-zinc-950/60 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <h3 class="text-4xl font-bold text-white tracking-tight stats-counter" data-target="4">0</h3>
+                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Projects</p>
                 </div>
-                <div class="education-card-3d fade-in-3d">
-                    <div class="education-icon-3d">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h3 class="education-degree-3d">Pre-University (PCMB)</h3>
-                    <p class="education-institution-3d">Vijaya BIFR PU College</p>
-                    <p class="education-details-3d">Bengaluru | 2020 – 2021 | 71%</p>
+                <div class="border-l border-zinc-800">
+                    <h3 class="text-4xl font-bold text-white tracking-tight stats-counter" data-target="2">0</h3>
+                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Internships</p>
                 </div>
-                <div class="education-card-3d fade-in-3d">
-                    <div class="education-icon-3d">
-                        <i class="fas fa-school"></i>
-                    </div>
-                    <h3 class="education-degree-3d">SSLC (10th Grade)</h3>
-                    <p class="education-institution-3d">JSS Public School</p>
-                    <p class="education-details-3d">Dharwad | 2018 – 2019 | 64.5%</p>
+                <div class="border-l border-zinc-800">
+                    <h3 class="text-lg font-bold text-white tracking-tight">AWS • K8s</h3>
+                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Core Stack</p>
+                </div>
+                <div class="border-l border-zinc-800">
+                    <h3 class="text-lg font-bold text-white tracking-tight">CI/CD • Monitoring</h3>
+                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Systems</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Certificates Section -->
-    <section class="certificates-section-3d" id="certificates">
-        <div class="certificates-container-3d">
-            <div class="section-header-3d fade-in-3d">
-                <h2 class="section-title-3d">Certifications</h2>
-                <p class="section-subtitle-3d">Recognitions of my expertise</p>
-            </div>
-            <div class="certificates-grid-3d">
-                <div class="certificate-card-3d fade-in-3d">
-                    <div class="certificate-icon-3d">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <h3 class="certificate-title-3d">Introduction to DevOps</h3>
-                    <p class="certificate-issuer-3d">IBM (Coursera)</p>
-                    <p class="certificate-date-3d">Issued: 2025</p>
+        <!-- SKILLS SECTION (FIX 6: No % Bars) -->
+        <section id="skills" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <p class="text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Proficiency</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Technical Arsenal</h2>
                 </div>
-                <div class="certificate-card-3d fade-in-3d">
-                    <div class="certificate-icon-3d">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <h3 class="certificate-title-3d">AI/ML Internship Certificate</h3>
-                    <p class="certificate-issuer-3d">VTU WIINNR</p>
-                    <p class="certificate-date-3d">Issued: 2025</p>
-                </div>
-                <div class="certificate-card-3d fade-in-3d">
-                    <div class="certificate-icon-3d">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <h3 class="certificate-title-3d">DataCamp Certifications</h3>
-                    <p class="certificate-issuer-3d">DataCamp</p>
-                    <p class="certificate-date-3d">ML, Python, SQL, DevOps, AI</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section-3d" id="contact">
-        <div class="contact-container-3d">
-            <div class="section-header-3d fade-in-3d">
-                <h2 class="section-title-3d">Get In Touch</h2>
-                <p class="section-subtitle-3d">Let's build something amazing together</p>
-            </div>
-            <form class="contact-form-3d fade-in-3d" id="contactForm">
-                <div class="form-group-3d">
-                    <label class="form-label-3d" for="name">Name</label>
-                    <input type="text" id="name" class="form-input-3d" required>
-                </div>
-                <div class="form-group-3d">
-                    <label class="form-label-3d" for="email">Email</label>
-                    <input type="email" id="email" class="form-input-3d" required>
-                </div>
-                <div class="form-group-3d">
-                    <label class="form-label-3d" for="subject">Subject</label>
-                    <input type="text" id="subject" class="form-input-3d" required>
-                </div>
-                <div class="form-group-3d">
-                    <label class="form-label-3d" for="message">Message</label>
-                    <textarea id="message" class="form-textarea-3d" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn-3d">
-                    <i class="fas fa-paper-plane"></i>
-                    Send Message
-                </button>
-            </form>
-        </div>
-    </section>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Skill Card 1 -->
+                    <div class="tilt-card glass-panel rounded-xl p-8 border border-zinc-800">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fas fa-cloud text-2xl text-cyan-500"></i>
+                            <h3 class="text-xl font-bold text-white">Cloud & DevOps</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">AWS</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Docker</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Kubernetes</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Terraform</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Ansible</span>
+                        </div>
+                    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content-3d">
-            <div class="social-links-3d">
-                <a href="https://linkedin.com/in/shreyas-neelaraddi" target="_blank" class="social-link-3d">
-                    <i class="fab fa-linkedin-in"></i>
+                    <!-- Skill Card 2 -->
+                    <div class="tilt-card glass-panel rounded-xl p-8 border border-zinc-800">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fas fa-cogs text-2xl text-indigo-500"></i>
+                            <h3 class="text-xl font-bold text-white">CI/CD & Automation</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Jenkins</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">GitHub Actions</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">GitLab CI</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card 3 -->
+                    <div class="tilt-card glass-panel rounded-xl p-8 border border-zinc-800">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fas fa-chart-line text-2xl text-rose-500"></i>
+                            <h3 class="text-xl font-bold text-white">Monitoring</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Prometheus</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Grafana</span>
+                            <span class="px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">CloudWatch</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="relative py-24 scroll-mt-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-16">
+                    <p class="text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Portfolio</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Featured Engineering</h2>
+                </div>
+
+                <div class="space-y-24">
+                    <!-- Project 1 -->
+                    <div class="grid md:grid-cols-12 gap-8 items-center">
+                        <div class="md:col-span-7 relative group">
+                            <div class="absolute inset-0 bg-emerald-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
+                            <div class="relative rounded-xl overflow-hidden border border-zinc-800 shadow-2xl">
+                                <div class="absolute top-3 left-3 z-10 bg-black/50 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-mono text-emerald-400 border border-emerald-500/20">LIVE ARCHITECTURE</div>
+                                <img src="images/project-cicd.png" onerror="this.src='https://z-cdn-media.chatglm.cn/files/b4172962-bf28-49c6-ba0e-5ec30ead898a.png?auth_key=1874150476-930bff3838bb4a33890bcfd42ab0ce52-0-14ce5a70d91375fb6b33eb604390235e'" class="w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="CI/CD Architecture">
+                            </div>
+                        </div>
+                        <div class="md:col-span-5 space-y-4">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold border border-emerald-500/20">FEATURED PROJECT</span>
+                            <!-- FIX 8: Specific Title -->
+                            <h3 class="text-3xl font-bold text-white tracking-tight">CI/CD Pipeline Automation (Flask + Kubernetes + AWS)</h3>
+                            <p class="text-zinc-400 leading-relaxed text-sm">
+                                End-to-end pipeline automating build, test, and deployment phases. Designed for high availability and speed on AWS infrastructure.
+                            </p>
+                            <!-- FIX 7: Stack Tags -->
+                            <div class="text-xs font-mono text-zinc-500 bg-zinc-900 p-2 rounded border border-zinc-800">
+                                Pipeline: Git → Jenkins → Docker → Kubernetes → AWS → Monitoring
+                            </div>
+                            <div class="space-y-3 text-sm pt-2">
+                                <div class="flex gap-3 border-l-2 border-zinc-700 pl-3 hover:border-emerald-500 transition-colors">
+                                    <span class="text-emerald-500 font-mono text-xs mt-0.5">01</span>
+                                    <span class="text-zinc-300">Solved slow manual releases & config drift.</span>
+                                </div>
+                                <div class="flex gap-3 border-l-2 border-zinc-700 pl-3 hover:border-emerald-500 transition-colors">
+                                    <span class="text-emerald-500 font-mono text-xs mt-0.5">02</span>
+                                    <span class="text-zinc-300">Jenkins, Docker, K8s, Terraform IaC.</span>
+                                </div>
+                                <div class="flex gap-3 border-l-2 border-emerald-500 pl-3">
+                                    <span class="text-emerald-500 font-mono text-xs mt-0.5">03</span>
+                                    <!-- FIX 2: Real Metric Placeholder -->
+                                    <span class="text-zinc-300">Improved deployment speed and automation efficiency.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 pt-4">
+                                <!-- FIX 2: Specific GitHub Link -->
+                                <a href="https://github.com/shreyasneelaraddi/cicd-pipeline" target="_blank" class="text-sm font-medium text-white flex items-center gap-2 hover:text-emerald-500 transition-colors">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                                <a href="#" class="text-sm font-medium text-white flex items-center gap-2 hover:text-cyan-500 transition-colors">
+                                    <i class="fas fa-external-link-alt"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="grid md:grid-cols-12 gap-8 items-center">
+                        <div class="md:col-span-5 space-y-4 md:order-1">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-500 text-xs font-bold border border-cyan-500/20">AI INTEGRATION</span>
+                            <h3 class="text-3xl font-bold text-white tracking-tight">AI Resume Assistant (OpenAI + LangChain)</h3>
+                            <p class="text-zinc-400 leading-relaxed text-sm">
+                                GenAI-powered system for context-aware candidate screening using vector search and LLMs.
+                            </p>
+                            <div class="text-xs font-mono text-zinc-500 bg-zinc-900 p-2 rounded border border-zinc-800">
+                                Flow: Resume → LangChain → Vector DB → OpenAI → Analysis
+                            </div>
+                            <div class="space-y-3 text-sm pt-2">
+                                <div class="flex gap-3 border-l-2 border-zinc-700 pl-3">
+                                    <span class="text-cyan-500 font-mono text-xs mt-0.5">01</span>
+                                    <span class="text-zinc-300">LangChain, OpenAI, RAG Pipelines.</span>
+                                </div>
+                                <div class="flex gap-3 border-l-2 border-cyan-500 pl-3">
+                                    <span class="text-cyan-500 font-mono text-xs mt-0.5">02</span>
+                                    <span class="text-zinc-300">Improved screening efficiency significantly.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 pt-4">
+                                <a href="https://github.com/shreyasneelaraddi/ai-resume-screening" target="_blank" class="text-sm font-medium text-white flex items-center gap-2 hover:text-emerald-500 transition-colors">
+                                    <i class="fab fa-github"></i> View Code
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:col-span-7 md:order-2 relative group">
+                            <div class="absolute inset-0 bg-cyan-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
+                            <div class="relative rounded-xl overflow-hidden border border-zinc-800 shadow-2xl">
+                                <img src="images/project-resume-ai.png" onerror="this.src='https://z-cdn-media.chatglm.cn/files/16e01954-14f1-46ed-a90e-9a0428e3d033.png?auth_key=1874150476-e65adb0d0c0442e7aba403ea71227e9b-0-5773df9319f7bb3231078dde67f6b03c'" class="w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="AI Resume Project">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projects Grid -->
+                    <div class="grid md:grid-cols-2 gap-8 pt-8">
+                        <!-- Project 3 -->
+                        <div class="tilt-card glass-panel rounded-xl overflow-hidden group">
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="images/project-sales-analytics.png" onerror="this.src='https://z-cdn-media.chatglm.cn/files/571ade36-a39b-433e-921f-b9ed9be010cf.png?auth_key=1874150476-3ebe2cf85ce542e6b1435f1fd7b3599d-0-5f433a404ebd4cc23a8f6a2df6075c17'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80" alt="Sales Analytics">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            </div>
+                            <div class="p-6 border-t border-zinc-800/50">
+                                <h3 class="text-xl font-bold text-white mb-2">Sales Analytics Dashboard</h3>
+                                <p class="text-zinc-400 text-sm mb-4">ML-based forecasting deployed on AWS EC2.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-zinc-500 font-mono">Python • Power BI • AWS</span>
+                                    <a href="https://github.com/shreyasneelaraddi/sales-analytics" target="_blank" class="text-emerald-500 hover:text-white text-sm font-medium">View <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 4 -->
+                        <div class="tilt-card glass-panel rounded-xl overflow-hidden group">
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="images/project-healthcare.png" onerror="this.src='https://z-cdn-media.chatglm.cn/files/a31ea9f8-4e28-4f16-b43f-2b0d712a22c5.png?auth_key=1874150476-b3dbb58387fd4b5bafda27e577c2a7f7-0-40aa7e3b60f1153af2dc5a6eea790f64'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80" alt="Healthcare Prediction">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                            </div>
+                            <div class="p-6 border-t border-zinc-800/50">
+                                <h3 class="text-xl font-bold text-white mb-2">Healthcare Risk Prediction</h3>
+                                <p class="text-zinc-400 text-sm mb-4">Ensemble ML models with modular pipelines.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-zinc-500 font-mono">Scikit-learn • Docker</span>
+                                    <a href="https://github.com/shreyasneelaraddi/healthcare-prediction" target="_blank" class="text-cyan-500 hover:text-white text-sm font-medium">View <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE SECTION -->
+        <section id="architecture" class="relative py-24 bg-zinc-950/30 border-y border-zinc-800">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <p class="text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// System Design</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Architecture Blueprints</h2>
+                    <!-- FIX 9: System Clarity -->
+                    <p class="text-zinc-500 mt-2 max-w-lg mx-auto text-sm">Code is pushed → automatically built → containerized → deployed → monitored in production.</p>
+                </div>
+
+                <div class="relative glass-panel rounded-2xl p-10 border border-zinc-800 overflow-hidden mb-8">
+                    <h3 class="text-lg font-bold text-white mb-12 flex items-center gap-2">
+                        <i class="fas fa-network-wired text-emerald-500"></i>
+                        CI/CD Deployment Pipeline
+                    </h3>
+                    
+                    <div class="hidden md:block flow-packet"></div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-6 relative z-10">
+                        <!-- Nodes -->
+                        <div class="flex flex-col items-center text-center group">
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-orange-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                                <i class="fab fa-git-alt"></i>
+                            </div>
+                            <span class="font-semibold text-sm text-white">Source</span>
+                            <span class="text-[10px] text-zinc-600 font-mono">Git Repository</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center group">
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-blue-500 mb-3 group-hover:border-emerald-500 transition-all duration-300">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <span class="font-semibold text-sm text-white">Build</span>
+                            <span class="text-[10px] text-zinc-600 font-mono">Jenkins CI</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center group">
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-cyan-500 mb-3 group-hover:border-emerald-500 transition-all duration-300">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <span class="font-semibold text-sm text-white">Package</span>
+                            <span class="text-[10px] text-zinc-600 font-mono">Docker Image</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center group">
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-indigo-500 mb-3 group-hover:border-emerald-500 transition-all duration-300">
+                                <i class="fas fa-dharmachakra"></i>
+                            </div>
+                            <span class="font-semibold text-sm text-white">Deploy</span>
+                            <span class="text-[10px] text-zinc-600 font-mono">Kubernetes</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center group">
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-yellow-500 mb-3 group-hover:border-emerald-500 transition-all duration-300">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <span class="font-semibold text-sm text-white">Production</span>
+                            <span class="text-[10px] text-zinc-600 font-mono">AWS Cloud</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENGINEERING MINDSET -->
+        <section id="mindset" class="py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <p class="text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Philosophy</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Engineering Mindset</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/30 transition-all duration-300">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
+                                <i class="fas fa-magic text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Automate Everything</h3>
+                                <p class="text-zinc-400 text-sm leading-relaxed">If it can be scripted, it should be scripted. Eliminating toil increases velocity and reliability.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-cyan-500/30 transition-all duration-300">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-cyan-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0">
+                                <i class="fas fa-code text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Infrastructure as Code</h3>
+                                <p class="text-zinc-400 text-sm leading-relaxed">Managing infrastructure through version control ensures consistency, audit trails, and rapid recovery.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-indigo-500/30 transition-all duration-300">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0">
+                                <i class="fas fa-eye text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Observability First</h3>
+                                <p class="text-zinc-400 text-sm leading-relaxed">You can't fix what you can't see. Monitoring and logging are foundational layers, not afterthoughts.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-rose-500/30 transition-all duration-300">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-rose-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-500 shrink-0">
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2">Resilience Engineering</h3>
+                                <p class="text-zinc-400 text-sm leading-relaxed">Designing systems that anticipate failure and recover gracefully is the cornerstone of reliability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="py-24 scroll-mt-20">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="mb-16">
+                    <p class="text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Career</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Experience</h2>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="tilt-card glass-panel rounded-xl p-8 border border-zinc-800 hover:border-emerald-500/20 transition-colors group relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white">AI/ML Intern</h3>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono">OCT 2024 – FEB 2025</span>
+                        </div>
+                        <p class="text-zinc-500 text-sm mb-4 font-medium">VTU WIINNR (IT Ignition Program)</p>
+                        <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Built ML pipelines (Python, GitHub Actions).</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Docker deployment on AWS EC2.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> IaC using Terraform & Ansible.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Monitoring with Prometheus & Grafana.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tilt-card glass-panel rounded-xl p-8 border border-zinc-800 hover:border-cyan-500/20 transition-colors group relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-cyan-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white">AI Intern</h3>
+                            </div>
+                            <span class="text-xs font-bold text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono">OCT 2025 – DEC 2025</span>
+                        </div>
+                        <p class="text-zinc-500 text-sm mb-4 font-medium">Agnirva (Fast Track Program)</p>
+                        <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-cyan-500 mt-1"></i> Optimized LLM prompt workflows.</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-cyan-500 mt-1"></i> Built RAG capstone project.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS (FIX 1: Real Content) -->
+        <section class="py-24 bg-zinc-950/50">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="mb-16 text-center">
+                    <p class="text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Credentials</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Certifications</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                        <i class="fas fa-certificate text-3xl text-blue-400 mb-4"></i>
+                        <h3 class="font-bold text-white mb-1">Introduction to DevOps</h3>
+                        <p class="text-zinc-500 text-sm">IBM (Coursera)</p>
+                    </div>
+                    <div class="glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                        <i class="fas fa-certificate text-3xl text-emerald-400 mb-4"></i>
+                        <h3 class="font-bold text-white mb-1">DataCamp Certifications</h3>
+                        <p class="text-zinc-500 text-sm">AWS Cloud • Security • Python • SQL</p>
+                    </div>
+                    <div class="glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                        <i class="fas fa-award text-3xl text-yellow-400 mb-4"></i>
+                        <h3 class="font-bold text-white mb-1">AI/ML Internship Certificate</h3>
+                        <p class="text-zinc-500 text-sm">VTU WIINNR</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT (FIX 4: Mailto Link) -->
+        <section id="contact" class="py-24">
+            <div class="max-w-3xl mx-auto px-6 text-center">
+                <div class="mb-12">
+                    <p class="text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Connect</p>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Get In Touch</h2>
+                    <p class="text-zinc-400 mt-4 text-sm">Ready to discuss cloud architecture or DevOps opportunities.</p>
+                </div>
+
+                <a href="mailto:shreyas2932003@gmail.com" class="inline-flex items-center gap-3 px-10 py-5 rounded-lg bg-white text-black font-bold hover:bg-zinc-100 transition-all shadow-2xl shadow-white/10 text-lg">
+                    <i class="fas fa-paper-plane"></i> Send Email
                 </a>
-                <a href="https://github.com/shreyasneelaraddi" target="_blank" class="social-link-3d">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="mailto:shreyas2932003@gmail.com" class="social-link-3d">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative py-16 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-4">
+                <a href="mailto:shreyas2932003@gmail.com" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all">
                     <i class="fas fa-envelope"></i>
                 </a>
-                <a href="tel:+919035646885" class="social-link-3d">
-                    <i class="fas fa-phone"></i>
+                <a href="https://linkedin.com/in/shreyas-neelaraddi" target="_blank" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/shreyasneelaraddi" target="_blank" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all">
+                    <i class="fab fa-github"></i>
                 </a>
             </div>
-            <p style="color: var(--text-secondary); margin-top: 30px; font-size: 1.1rem;">
-                © 2025 Shreyas Neelaraddi. Crafting AI/ML & DevOps Solutions
+            <p class="text-zinc-600 text-xs font-mono tracking-widest">
+                © 2025 SHREYAS NEELARADDI // ALL SYSTEMS OPERATIONAL
             </p>
         </div>
     </footer>
 
-    <!-- Project Modal -->
-    <div class="modal" id="projectModal">
-        <div class="modal-content">
-            <span class="modal-close" id="modalClose">&times;</span>
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Project Title</h2>
-                <div class="modal-tech" id="modalTech"></div>
-            </div>
-            <div class="modal-description" id="modalDescription">
-                Project description goes here...
-            </div>
-            <div class="modal-features" id="modalFeatures">
-                <h3>Key Features</h3>
-                <ul id="modalFeaturesList"></ul>
-            </div>
-            <div class="modal-links">
-                <a href="#" class="modal-link" id="modalDemoLink" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> Live Demo
-                </a>
-                <a href="#" class="modal-link" id="modalGithubLink" target="_blank">
-                    <i class="fab fa-github"></i> Source Code
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div class="toast-3d" id="toast">
-        <div class="toast-icon-3d">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="toast-message-3d" id="toastMessage">Message sent successfully!</div>
-    </div>
-
+    <!-- SCRIPTS -->
     <script>
-        // Project Data
-        const projectData = {
-            cicd: {
-                title: "CI/CD Pipeline Automation for Flask Application",
-                tech: ["Jenkins", "GitLab CI/CD", "Docker", "Kubernetes", "Terraform", "Ansible", "Prometheus"],
-                description: "Designed end-to-end CI/CD pipeline for automated build, test, and deployment. Containerized and deployed a Flask application on a Kubernetes cluster. Provisioned infrastructure using Terraform and automated configuration with Ansible. Integrated Prometheus and Grafana for application and infrastructure monitoring.",
-                features: [
-                    "End-to-end CI/CD pipeline for automated build, test, and deployment",
-                    "Containerization with Docker and Kubernetes orchestration",
-                    "Infrastructure as Code with Terraform for automated provisioning",
-                    "Configuration management with Ansible",
-                    "Integrated Prometheus and Grafana for monitoring",
-                    "Improved deployment reliability and observability"
-                ],
-                demo: "#",
-                github: "#"
-            },
-            "resume-screener": {
-                title: "AI-Powered Resume Screening and Interview Assistant",
-                tech: ["Python", "OpenAI API", "LangChain", "Streamlit", "Flask", "Docker Compose", "GitHub Actions"],
-                description: "Built a GenAI-powered resume screening and interview assistant using OpenAI APIs and LangChain. Implemented vector embeddings and RAG pipelines for context-aware responses. Designed prompt workflows to improve relevance and reduce hallucinations. Automated deployment using Docker Compose and CI/CD pipelines.",
-                features: [
-                    "GenAI-powered screening using OpenAI & LangChain",
-                    "Context-aware responses using RAG and Vector Embeddings",
-                    "Optimized prompt workflows to reduce hallucinations",
-                    "Enabled context-aware candidate evaluation",
-                    "Automated deployment with Docker Compose and CI/CD"
-                ],
-                demo: "#",
-                github: "#"
-            },
-            "sales-analytics": {
-                title: "AI-Driven Sales Analytics Dashboard",
-                tech: ["Python", "SQL", "Power BI", "Docker", "GitHub Actions", "AWS"],
-                description: "Developed an ML-based sales forecasting system using Python and SQL. Automated data processing and dashboard refresh workflows. Deployed the solution on AWS EC2 using Docker and CI/CD pipelines.",
-                features: [
-                    "ML-based sales forecasting system",
-                    "Automated data processing workflows",
-                    "Dashboard refresh automation with Power BI",
-                    "Cloud deployment on AWS EC2",
-                    "Containerization with Docker"
-                ],
-                demo: "#",
-                github: "#"
-            },
-            healthcare: {
-                title: "Healthcare Risk Prediction System",
-                tech: ["Python", "scikit-learn", "Streamlit", "Docker", "Ansible"],
-                description: "Developed ensemble ML models for healthcare risk prediction using scikit-learn. Built and deployed a Streamlit-based application using Docker and Ansible. Designed system with modular pipelines to support future retraining.",
-                features: [
-                    "Ensemble ML models for accurate risk prediction",
-                    "Streamlit-based application interface",
-                    "Modular pipelines for model retraining",
-                    "Deployment using Docker",
-                    "Configuration management with Ansible"
-                ],
-                demo: "#",
-                github: "#"
-            }
-        };
-
-        // Industry-Ready DevOps Loading Screen
-        window.addEventListener('load', function() {
-            const loader = document.getElementById('loader');
-            const loaderProgress = document.querySelector('.loader-progress-bar');
-            const loaderText = document.getElementById('loaderText');
-            let progress = 0;
-            
-            const stages = document.querySelectorAll('.pipeline-stage');
-            let currentStage = 0;
-
-            const stageMessages = [
-                "Cloning Repository...",
-                "Building Docker Images...",
-                "Running Unit Tests...",
-                "Deploying to Kubernetes...",
-                "Configuring Monitoring..."
-            ];
-            
-            const interval = setInterval(() => {
-                progress += Math.random() * 5;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    loaderText.textContent = "System Ready";
-                    setTimeout(() => {
-                        loader.classList.add('hidden');
-                        setTimeout(() => {
-                            typeTerminal();
-                        }, 500);
-                    }, 500);
-                } else {
-                    loaderProgress.style.width = `${progress}%`;
-                    
-                    const stageIndex = Math.floor((progress / 100) * stages.length);
-                    if(stageIndex < stageMessages.length && stageIndex > currentStage) {
-                        loaderText.textContent = stageMessages[stageIndex];
-                        currentStage = stageIndex;
-                    }
-                }
-                
-                if (progress > 20 && currentStage < stages.length) {
-                    const activeIndex = Math.floor((progress / 100) * stages.length);
-                    stages.forEach((stage, index) => {
-                        if (index === activeIndex) stage.classList.add('active');
-                        else stage.classList.remove('active');
-                    });
-                }
-            }, 50);
+        // --- FIX 5: Instant Preloader ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('preloader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 300);
+            }, 0); // Instant
         });
 
-        // Typewriter Effect for Terminal
-        function typeTerminal() {
-            const terminal = document.getElementById('terminal');
-            terminal.innerHTML = '';
-            
-            const lines = [
-                { type: 'command', text: 'whoami' },
-                { type: 'output', html: 'Shreyas Neelaraddi<br>Role: AI/ML & DevOps Engineer<br>Location: Bengaluru, India<br>Status: <span style="color: var(--success);">● Available for opportunities</span>' },
-                { type: 'command', text: 'cat profile.txt' },
-                { type: 'output', html: '<strong>Professional Summary:</strong><br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>Hands-on experience building production-ready applications using<br>Docker, Kubernetes, CI/CD pipelines, and AWS. Strong in Python<br>ML systems, infrastructure automation, and monitoring.<br>Experienced in GenAI (OpenAI, Gemini, LangChain, RAG).<br><br><strong>Core Competencies:</strong><br>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>• MLOps & DevOps (Docker, K8s, Terraform, Jenkins)<br>• Generative AI (OpenAI, Gemini, LangChain, RAG)<br>• Cloud Infrastructure (AWS, IaC)' },
-                { type: 'command', text: 'echo "Ready to build amazing solutions"' },
-                { type: 'output', text: 'Ready to build amazing solutions' }
-            ];
+        // --- Mobile Menu ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isOpen = false;
 
-            let lineIndex = 0;
-            
-            function addLine() {
-                if (lineIndex >= lines.length) {
-                    const cursorLine = document.createElement('div');
-                    cursorLine.className = 'terminal-line-3d';
-                    cursorLine.innerHTML = `<span class="terminal-prompt-3d">$</span> <span class="terminal-cursor-3d"></span>`;
-                    terminal.appendChild(cursorLine);
-                    return;
-                }
-
-                const lineData = lines[lineIndex];
-                const lineDiv = document.createElement('div');
-                lineDiv.className = 'terminal-line-3d';
-                lineDiv.style.animation = 'none';
-                lineDiv.style.opacity = '1';
-                
-                if (lineData.type === 'command') {
-                    lineDiv.innerHTML = `<span class="terminal-prompt-3d">$</span> <span class="terminal-command-3d">${lineData.text}</span>`;
-                } else {
-                    lineDiv.innerHTML = `<div class="terminal-output-3d">${lineData.html}</div>`;
-                }
-                
-                terminal.appendChild(lineDiv);
-                lineIndex++;
-                setTimeout(addLine, 800);
-            }
-            
-            addLine();
-        }
-
-        // Custom Cursor Logic
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        if (window.matchMedia("(hover: hover)").matches) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX - 10 + 'px';
-                    cursorFollower.style.top = e.clientY - 10 + 'px';
-                }, 100);
-            });
-
-            document.querySelectorAll('a, button, .project-card-3d, .skill-card-3d, .education-card-3d, .certificate-card-3d').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('hover');
-                    cursorFollower.style.transform = 'scale(1.5)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('hover');
-                    cursorFollower.style.transform = 'scale(1)';
-                });
-            });
-        }
-
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const html = document.documentElement;
-
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        html.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
-
-        themeToggle.addEventListener('click', () => {
-            const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            updateThemeIcon(theme);
+        menuBtn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            mobileMenu.style.display = isOpen ? 'flex' : 'none';
+            menuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        function updateThemeIcon(theme) {
-            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-        }
-
-        // Navigation
-        const navLinks = document.querySelectorAll('.nav-link');
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-        const navbar = document.getElementById('navbar');
-
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').slice(1);
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                    navMenu.classList.remove('active');
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                }
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isOpen = false;
+                mobileMenu.style.display = 'none';
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
 
+        // --- Scroll Progress Bar ---
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
-                }
-            });
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
         });
 
-        // Particle Background - Optimized
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let animationFrameId;
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function createParticles() {
-            particles = [];
-            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 30000);
-            
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    speedX: (Math.random() - 0.5) * 0.3,
-                    speedY: (Math.random() - 0.5) * 0.3,
-                    opacity: Math.random() * 0.4 + 0.2
-                });
-            }
-        }
-
-        function drawParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                ctx.beginPath();
-                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(0, 255, 136, ${particle.opacity})`;
-                ctx.fill();
-                
-                particle.x += particle.speedX;
-                particle.y += particle.speedY;
-                
-                if (particle.x < 0) particle.x = canvas.width;
-                if (particle.x > canvas.width) particle.x = 0;
-                if (particle.y < 0) particle.y = canvas.height;
-                if (particle.y > canvas.height) particle.y = 0;
-            });
-            
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(0, 255, 136, ${0.08 * (1 - distance / 100)})`;
-                        ctx.stroke();
-                    }
-                }
-            }
-            animationFrameId = requestAnimationFrame(drawParticles);
-        }
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            createParticles();
-        });
-
-        resizeCanvas();
-        createParticles();
-        drawParticles();
-
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                cancelAnimationFrame(animationFrameId);
-            } else {
-                drawParticles();
-            }
-        });
-
-        // Scroll Progress
-        window.addEventListener('scroll', function() {
-            const scrollProgress = document.getElementById('scrollProgress');
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            scrollProgress.style.width = `${(window.scrollY / totalHeight) * 100}%`;
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // --- Intersection Observer ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    if (entry.target.classList.contains('stat-card')) {
-                        const counter = entry.target.querySelector('.stat-number');
-                        if(counter && !counter.classList.contains('counted')) {
-                            counter.classList.add('counted');
-                            const target = parseInt(counter.getAttribute('data-target'));
-                            let current = 0;
-                            const increment = target / 50;
-                            
-                            const updateCounter = () => {
-                                current += increment;
-                                if (current < target) {
-                                    counter.textContent = Math.ceil(current);
-                                    requestAnimationFrame(updateCounter);
-                                } else {
-                                    counter.textContent = target + (target === 100 ? '%' : '+');
-                                }
-                            };
-                            updateCounter();
-                        }
-                    }
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in-3d').forEach(el => {
+        document.querySelectorAll('.tilt-card, .glass-panel').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
             observer.observe(el);
         });
 
-        // Filter Logic (Skills & Projects)
-        function setupFilters(filterBtnClass, cardClass, dataAttr) {
-            const buttons = document.querySelectorAll(`.${filterBtnClass}`);
-            const cards = document.querySelectorAll(`.${cardClass}`);
-
-            buttons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const filter = btn.getAttribute('data-filter');
+        // --- Stats Counter ---
+        const counters = document.querySelectorAll('.stats-counter');
+        const easeOutQuad = t => t * (2 - t);
+        
+        const startCounting = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = +entry.target.getAttribute('data-target');
+                    const duration = 2000;
+                    const start = performance.now();
                     
-                    buttons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    cards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute(dataAttr) === filter) {
-                            card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0)';
-                            }, 10);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
+                    const animate = (currentTime) => {
+                        const elapsed = currentTime - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const easedProgress = easeOutQuad(progress);
+                        
+                        entry.target.innerText = Math.floor(easedProgress * target) + '+';
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
                         }
-                    });
-                });
-            });
-        }
-
-        setupFilters('skills-filter .filter-btn', 'skill-card-3d', 'data-category');
-        setupFilters('projects-filter .filter-btn', 'project-card-3d', 'data-category');
-
-        // Project Modal
-        const projectCards = document.querySelectorAll('.project-card-3d');
-        const modal = document.getElementById('projectModal');
-        const modalClose = document.getElementById('modalClose');
-
-        projectCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (!e.target.closest('.project-link-3d')) {
-                    const projectId = card.getAttribute('data-project');
-                    const project = projectData[projectId];
-                    
-                    if (project) {
-                        document.getElementById('modalTitle').textContent = project.title;
-                        
-                        const techContainer = document.getElementById('modalTech');
-                        techContainer.innerHTML = '';
-                        project.tech.forEach(tech => {
-                            const tag = document.createElement('span');
-                            tag.className = 'modal-tech-tag';
-                            tag.textContent = tech;
-                            techContainer.appendChild(tag);
-                        });
-                        
-                        document.getElementById('modalDescription').textContent = project.description;
-                        
-                        const featuresList = document.getElementById('modalFeaturesList');
-                        featuresList.innerHTML = '';
-                        project.features.forEach(feature => {
-                            const li = document.createElement('li');
-                            li.textContent = feature;
-                            featuresList.appendChild(li);
-                        });
-                        
-                        document.getElementById('modalDemoLink').href = project.demo;
-                        document.getElementById('modalGithubLink').href = project.github;
-                        
-                        modal.classList.add('active');
-                    }
+                    };
+                    requestAnimationFrame(animate);
+                    observer.unobserve(entry.target);
                 }
             });
-        });
+        };
 
-        modalClose.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-
-        // Contact Form
-        const contactForm = document.getElementById('contactForm');
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toastMessage');
-
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            if (message.length < 10) {
-                showToast('Message must be at least 10 characters long', 'error');
-                return;
-            }
-            
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showToast('Please enter a valid email address', 'error');
-                return;
-            }
-            
-            showToast(`Thank you ${name}! Your message has been sent.`, 'success');
-            contactForm.reset();
-        });
-
-        function showToast(message, type = 'success') {
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            if (type === 'error') {
-                document.querySelector('.toast-icon-3d i').className = 'fas fa-exclamation-circle';
-                document.querySelector('.toast-icon-3d').style.color = 'var(--danger)';
-            } else {
-                document.querySelector('.toast-icon-3d i').className = 'fas fa-check-circle';
-                document.querySelector('.toast-icon-3d').style.color = 'var(--primary)';
-            }
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Keyboard Shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            
-            switch(e.key.toLowerCase()) {
-                case 'h': document.getElementById('home').scrollIntoView({ behavior: 'smooth' }); break;
-                case 's': document.getElementById('stats').scrollIntoView({ behavior: 'smooth' }); break;
-                case 'a': document.getElementById('about').scrollIntoView({ behavior: 'smooth' }); break;
-                case 'p': document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }); break;
-                case 'e': document.getElementById('experience').scrollIntoView({ behavior: 'smooth' }); break;
-                case 'c': document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); break;
-                case 't': themeToggle.click(); break;
-                case 'escape': modal.classList.remove('active'); break;
-            }
-        });
+        const counterObserver = new IntersectionObserver(startCounting, { threshold: 1 });
+        counters.forEach(counter => counterObserver.observe(counter));
     </script>
 </body>
 </html>
