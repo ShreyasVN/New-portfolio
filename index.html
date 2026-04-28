@@ -10,6 +10,7 @@
     
     <meta property="og:title" content="Shreyas Neelaraddi | DevOps Engineer">
     <meta property="og:description" content="Portfolio of a Cloud & DevOps Engineer specializing in AWS, Kubernetes, and CI/CD automation.">
+    <meta property="og:image" content="images/Cover.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +57,7 @@
         #preloader {
             position: fixed; inset: 0; z-index: 9999; background: #000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.3s ease-out;
+            transition: opacity 0.5s ease-out;
         }
         .loader-spinner {
             width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1);
@@ -89,26 +90,102 @@
             box-shadow: 0 0 0 1px rgba(0,0,0,0.5);
         }
         
+        /* Animated Gradient Border */
+        @property --angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+        .animated-border {
+            position: relative;
+            background: var(--bg-base);
+            border-radius: 1rem;
+            z-index: 0;
+        }
+        .animated-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: conic-gradient(from var(--angle), transparent 40%, var(--accent), var(--accent-secondary), transparent 60%);
+            z-index: -1;
+            animation: rotateBorder 6s linear infinite;
+        }
+        .animated-border::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: conic-gradient(from var(--angle), transparent 40%, var(--accent), var(--accent-secondary), transparent 60%);
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.5;
+            animation: rotateBorder 6s linear infinite;
+        }
+        @keyframes rotateBorder {
+            to { --angle: 360deg; }
+        }
+
+        /* Cursor Glow */
+        #cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            transition: transform 0.15s ease-out, opacity 0.3s;
+            opacity: 0;
+        }
+        body:hover #cursor-glow { opacity: 1; }
+
+        /* Hero Background Image Styles - FIXED TO FIT SCREEN PROPERLY */
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            background-color: #000; /* Fallback for letterboxing */
+        }
+        .hero-bg-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Fills the screen */
+            object-position: top center; /* FIXED: Anchors image to top, prevents center zoom */
+            opacity: 0.5; /* High visibility but readable text */
+        }
+        .hero-bg-overlay {
+            position: absolute;
+            inset: 0;
+            /* Gradient specifically designed to let image show at top, but keep text readable at bottom */
+            background: linear-gradient(180deg, rgba(3,3,3,0.3) 0%, rgba(3,3,3,0.5) 50%, rgba(3,3,3,0.95) 100%);
+            z-index: 1;
+        }
+
         .tilt-card {
             transform-style: preserve-3d;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-        .tilt-card:hover {
-            transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(16, 185, 129, 0.2);
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.1); }
             50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
         }
-        
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
         
         @keyframes movePacket {
             0% { left: -20px; opacity: 0; }
@@ -119,175 +196,136 @@
         .flow-packet { position: absolute; top: 50%; left: 0; width: 20px; height: 2px; background: var(--accent); box-shadow: 0 0 10px var(--accent); transform: translateY(-50%); animation: movePacket 4s linear infinite; z-index: 0; }
 
         .typing-cursor {
-            display: inline-block;
-            width: 8px;
-            height: 16px;
-            background: var(--accent);
-            margin-left: 2px;
-            vertical-align: text-bottom;
-            animation: blink 1s step-end infinite;
+            display: inline-block; width: 8px; height: 16px; background: var(--accent); margin-left: 2px; vertical-align: text-bottom; animation: blink 1s step-end infinite;
         }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .skill-tag {
-            transition: all 0.3s ease;
-            cursor: default;
-        }
-        .skill-tag:hover {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: rgba(16, 185, 129, 0.4);
-            color: #10b981;
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
-            transform: translateY(-1px);
-        }
+        .skill-tag { transition: all 0.3s ease; cursor: default; position: relative; overflow: hidden; }
+        .skill-tag:hover { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.4); color: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.15); transform: translateY(-2px); }
+        .skill-bar { position: absolute; bottom: 0; left: 0; height: 2px; background: var(--accent); opacity: 0.5; transition: width 1s ease-out; }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-        .reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-        .reveal-left.revealed {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(30px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-        .reveal-right.revealed {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .reveal-scale.revealed {
-            opacity: 1;
-            transform: scale(1);
-        }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal.revealed { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-left.revealed { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .reveal-right.revealed { opacity: 1; transform: translateX(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal-scale.revealed { opacity: 1; transform: scale(1); }
 
         #back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #10b981;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+            position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 12px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 100; backdrop-filter: blur(10px);
         }
-        #back-to-top.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        #back-to-top:hover {
-            background: rgba(16, 185, 129, 0.25);
-            border-color: rgba(16, 185, 129, 0.6);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-        }
+        #back-to-top.visible { opacity: 1; transform: translateY(0); }
+        #back-to-top:hover { background: rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.6); }
 
-        .flow-line {
-            position: absolute;
-            top: 50%;
-            left: 10%;
-            right: 10%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.4), rgba(16, 185, 129, 0.2), transparent);
-            transform: translateY(-50%);
-            z-index: 0;
-        }
-        .flow-line::after {
-            content: '';
-            position: absolute;
-            inset: -1px 0;
-            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05), transparent);
-            filter: blur(4px);
-        }
+        .flow-line { position: absolute; top: 50%; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.4), rgba(16, 185, 129, 0.2), transparent); transform: translateY(-50%); z-index: 0; }
 
-        .hero-orb {
-            transition: transform 0.3s ease-out;
-        }
-
-        .mindset-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            transition: width 0.5s ease;
-        }
+        .mindset-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; transition: width 0.5s ease; }
         .mindset-card.emerald::after { background: #10b981; }
         .mindset-card.cyan::after { background: #06b6d4; }
         .mindset-card.indigo::after { background: #6366f1; }
         .mindset-card.rose::after { background: #f43f5e; }
         .mindset-card:hover::after { width: 100%; }
 
-        .nav-link {
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease; border-radius: 1px; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .company-logo { width: 40px; height: 40px; border-radius: 10px; object-fit: contain; padding: 6px; background: white; }
+
+        /* Infinite Marquee */
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        .marquee-content:hover { animation-play-state: paused; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-item { 
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.5rem; 
+            margin-right: 1.5rem; border: 1px solid rgba(255,255,255,0.05); border-radius: 9999px;
+            background: rgba(255,255,255,0.02); color: #a1a1aa; font-size: 0.875rem; font-weight: 500;
+            transition: all 0.3s;
+        }
+        .marquee-item:hover { border-color: rgba(16,185,129,0.3); color: white; background: rgba(16,185,129,0.05); }
+
+        /* Project Card Shine Effect */
+        .project-shine {
             position: relative;
+            overflow: hidden;
         }
-        .nav-link::after {
-            content: '';
+        .project-shine::before {
+            content: "";
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-            border-radius: 1px;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1) 50%, transparent 100%);
+            transform: skewX(-25deg);
+            z-index: 10;
+            transition: left 0.6s ease;
+            pointer-events: none;
         }
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
+        .project-shine:hover::before {
+            left: 125%;
         }
 
-        /* Company logo styling */
-        .company-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            object-fit: contain;
-            padding: 6px;
-            background: white;
+        /* Magnetic Button Wrapper */
+        .magnetic-btn { position: relative; display: inline-flex; }
+        .magnetic-btn-inner { transition: transform 0.3s ease-out; }
+
+        /* Bento Grid Styles */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr 1fr; }
+            .bento-span-2 { grid-column: span 2; }
+        }
+        @media (min-width: 769px) {
+            .bento-span-2 { grid-column: span 2; }
+            .bento-span-3 { grid-column: span 3; }
+        }
+
+        /* Timeline Glow */
+        .timeline-line {
+            position: absolute;
+            left: 19px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(16,185,129,0) 0%, rgba(16,185,129,0.5) 15%, rgba(16,185,129,0.5) 85%, rgba(16,185,129,0) 100%);
+            opacity: 0.3;
+        }
+        @media (min-width: 768px) {
+            .timeline-line { left: 50%; transform: translateX(-50%); }
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 12px;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background: var(--bg-base);
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(16,185,129,0.3);
+        }
+        @media (min-width: 768px) {
+            .timeline-dot { left: 50%; transform: translateX(-50%); }
         }
     </style>
 </head>
 <body class="grid-bg">
-
-    <div id="preloader">
-        <div class="loader-spinner"></div>
-    </div>
-
+    <div id="cursor-glow"></div>
+    <div id="preloader"><div class="loader-spinner"></div></div>
     <div id="scroll-progress"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-black/60 backdrop-blur-xl">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 text-emerald-500 group-hover:border-emerald-500/50 transition-all">
@@ -305,12 +343,8 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="Shreyas%20N%20Resume.pdf" download class="hidden md:block px-5 py-2.5 rounded-md bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-lg shadow-white/5">
-                    Resume
-                </a>
-                <button id="mobile-menu-btn" class="md:hidden text-white text-2xl z-50">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="Shreyas%20N%20Resume.pdf" download class="hidden md:block px-5 py-2.5 rounded-md bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-all shadow-lg shadow-white/5">Resume</a>
+                <button id="mobile-menu-btn" class="md:hidden text-white text-2xl z-50"><i class="fas fa-bars"></i></button>
             </div>
         </div>
     </nav>
@@ -326,14 +360,22 @@
 
     <main class="relative">
         
-        <!-- HERO -->
-        <section id="about" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-            <div class="hero-orb absolute top-1/4 left-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full filter blur-[120px] opacity-30 animate-float" id="orb1"></div>
-            <div class="hero-orb absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyan-500/10 rounded-full filter blur-[150px] opacity-20 animate-float" style="animation-delay: 2s;" id="orb2"></div>
+        <!-- HERO SECTION -->
+        <section id="about" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+            
+            <!-- Cover Image as Fitted Background -->
+            <div class="hero-bg-image">
+                <img src="images/Cover.png" alt="Cover Background">
+                <div class="hero-bg-overlay"></div>
+            </div>
 
-            <div class="relative max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-12 gap-12 items-center">
+            <div class="hero-orb absolute top-1/4 left-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full filter blur-[120px] opacity-30 animate-float z-[1]" id="orb1"></div>
+            <div class="hero-orb absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyan-500/10 rounded-full filter blur-[150px] opacity-20 animate-float z-[1]" style="animation-delay: 2s;" id="orb2"></div>
+
+            <div class="relative max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-12 gap-12 items-center w-full z-10">
                 
-                <div class="lg:col-span-7 space-y-8 z-10">
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-8">
                     <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/5 border border-emerald-500/20 backdrop-blur-sm">
                         <span class="relative flex h-2 w-2">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -343,14 +385,13 @@
                     </div>
 
                     <div class="space-y-4 reveal" style="transition-delay: 0.1s;">
-                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1] text-transparent bg-clip-text bg-gradient-to-br from-white via-zinc-200 to-zinc-500">
+                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[1.1] text-white">
                             Shreyas<br>
-                            Neelaraddi
+                            <span class="text-transparent bg-clip-text bg-gradient-to-br from-emerald-400 to-cyan-500">Neelaraddi</span>
                         </h1>
                         <div class="flex items-center gap-3 text-zinc-400 text-lg font-mono pt-2">
                             <span class="text-emerald-500">&gt;</span>
-                            <span>Cloud & DevOps Engineer</span>
-                            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                            <span id="typing-hero"></span><span class="typing-cursor"></span>
                         </div>
                     </div>
 
@@ -359,51 +400,49 @@
                         Specialized in <span class="text-white font-medium">AWS, Kubernetes</span>, and building deployment pipelines that scale.
                     </p>
 
-                    <p class="reveal text-sm text-zinc-500 max-w-lg border-l-2 border-zinc-800 pl-3" style="transition-delay: 0.25s;">
-                        Focused on building production-ready cloud systems with automation and observability.
-                    </p>
-
                     <div class="flex flex-col gap-4 pt-2">
                         <div class="reveal flex items-center gap-4 text-zinc-300 group" style="transition-delay: 0.3s;">
-                            <span class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors"><i class="fas fa-check"></i></span>
+                            <span class="w-10 h-10 rounded-lg bg-zinc-900/80 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors backdrop-blur-sm"><i class="fas fa-check"></i></span>
                             <span>Built CI/CD pipelines on AWS using Docker & Kubernetes</span>
                         </div>
                         <div class="reveal flex items-center gap-4 text-zinc-300 group" style="transition-delay: 0.35s;">
-                            <span class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors"><i class="fas fa-check"></i></span>
+                            <span class="w-10 h-10 rounded-lg bg-zinc-900/80 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors backdrop-blur-sm"><i class="fas fa-check"></i></span>
                             <span>Automated infrastructure using Terraform & Ansible</span>
                         </div>
                         <div class="reveal flex items-center gap-4 text-zinc-300 group" style="transition-delay: 0.4s;">
-                            <span class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors"><i class="fas fa-check"></i></span>
+                            <span class="w-10 h-10 rounded-lg bg-zinc-900/80 flex items-center justify-center text-emerald-500 border border-zinc-800 group-hover:border-emerald-500/50 transition-colors backdrop-blur-sm"><i class="fas fa-check"></i></span>
                             <span>Implemented monitoring using Prometheus & Grafana</span>
                         </div>
                     </div>
 
                     <div class="reveal flex flex-wrap gap-4 pt-6" style="transition-delay: 0.45s;">
-                        <a href="#projects" class="relative inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-white text-black font-bold text-sm uppercase tracking-wide hover:bg-zinc-100 transition-all shadow-2xl shadow-white/10 group overflow-hidden">
-                            <span class="relative z-10">Explore Projects</span>
-                            <i class="fas fa-arrow-right relative z-10 group-hover:translate-x-1 transition-transform"></i>
+                        <a href="#projects" class="magnetic-btn relative inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-white text-black font-bold text-sm uppercase tracking-wide hover:bg-zinc-100 transition-all shadow-2xl shadow-white/10 group overflow-hidden">
+                            <span class="magnetic-btn-inner relative z-10 flex items-center gap-2">Explore Projects <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i></span>
                         </a>
-                        <a href="https://github.com/shreyasneelaraddi" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-zinc-900 text-white font-bold text-sm uppercase tracking-wide border border-zinc-700 hover:bg-zinc-800 transition-all">
-                            <i class="fab fa-github"></i> GitHub
+                        <a href="https://github.com/shreyasneelaraddi" target="_blank" class="magnetic-btn inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-zinc-900/80 text-white font-bold text-sm uppercase tracking-wide border border-zinc-700 hover:bg-zinc-800 transition-all backdrop-blur-sm">
+                            <span class="magnetic-btn-inner flex items-center gap-2"><i class="fab fa-github"></i> GitHub</span>
                         </a>
-                        <a href="https://www.linkedin.com/in/shreyas-n2003-cloud-devops" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-zinc-900 text-white font-bold text-sm uppercase tracking-wide border border-zinc-700 hover:bg-zinc-800 transition-all">
-                            <i class="fab fa-linkedin-in"></i> LinkedIn
+                        <a href="https://www.linkedin.com/in/shreyas-n2003-cloud-devops" target="_blank" class="magnetic-btn inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-zinc-900/80 text-white font-bold text-sm uppercase tracking-wide border border-zinc-700 hover:bg-zinc-800 transition-all backdrop-blur-sm">
+                            <span class="magnetic-btn-inner flex items-center gap-2"><i class="fab fa-linkedin-in"></i> LinkedIn</span>
                         </a>
                     </div>
                 </div>
 
+                <!-- Right Content: Profile Image & Terminal -->
                 <div class="lg:col-span-5 space-y-6 relative">
                     <div class="reveal-right relative mx-auto w-72 h-72 md:w-80 md:h-80">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-cyan-500 rounded-2xl blur-2xl opacity-20 animate-pulse-glow"></div>
-                        <div class="relative rounded-2xl overflow-hidden border border-zinc-800 h-full shadow-2xl group">
-                            <img src="images/Shreyas%20N.webp" 
-                                 alt="Shreyas Neelaraddi" 
-                                 class="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-cyan-500 rounded-2xl blur-2xl opacity-25 animate-pulse-glow"></div>
+                        <div class="animated-border p-1 h-full rounded-2xl">
+                            <div class="relative rounded-xl overflow-hidden h-full shadow-2xl group bg-black">
+                                <img src="images/Shreyas%20N.webp" 
+                                     alt="Shreyas Neelaraddi" 
+                                     class="w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-700">
+                            </div>
                         </div>
-                        <div class="absolute -right-4 bottom-12 bg-zinc-900 border border-zinc-800 rounded-lg p-2 shadow-xl animate-float" style="animation-delay: 0.2s;">
+                        <div class="absolute -right-4 bottom-12 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 shadow-xl animate-float backdrop-blur-sm" style="animation-delay: 0.2s;">
                             <i class="fab fa-aws text-2xl text-yellow-400"></i>
                         </div>
-                        <div class="absolute -left-4 top-12 bg-zinc-900 border border-zinc-800 rounded-lg p-2 shadow-xl animate-float" style="animation-delay: 0.5s;">
+                        <div class="absolute -left-4 top-12 bg-zinc-900/90 border border-zinc-800 rounded-lg p-2 shadow-xl animate-float backdrop-blur-sm" style="animation-delay: 0.5s;">
                             <i class="fas fa-dharmachakra text-2xl text-blue-400"></i>
                         </div>
                     </div>
@@ -428,24 +467,40 @@
             </div>
         </section>
 
-        <!-- STATS STRIP -->
-        <section class="relative py-16 border-y border-zinc-800 bg-zinc-950/60 backdrop-blur-sm">
-            <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="reveal" style="transition-delay: 0s;">
-                    <h3 class="text-4xl font-bold text-white tracking-tight stats-counter" data-target="4">0</h3>
-                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Projects</p>
+        <!-- BENTO STATS & CORE STACK -->
+        <section class="relative py-24 border-b border-zinc-800 bg-zinc-950/60 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-6 bento-grid">
+                <!-- Stat 1 -->
+                <div class="reveal glass-panel rounded-xl p-6 border border-zinc-800 hover:border-emerald-500/30 transition-colors flex flex-col justify-between" style="transition-delay: 0s;">
+                    <span class="text-[11px] text-zinc-500 uppercase tracking-widest font-semibold">Projects</span>
+                    <h3 class="text-4xl font-bold text-white tracking-tight stats-counter mt-2" data-target="4">0</h3>
                 </div>
-                <div class="reveal border-l border-zinc-800" style="transition-delay: 0.1s;">
-                    <h3 class="text-4xl font-bold text-white tracking-tight stats-counter" data-target="3">0</h3>
-                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Experiences</p>
+                <!-- Stat 2 -->
+                <div class="reveal glass-panel rounded-xl p-6 border border-zinc-800 hover:border-emerald-500/30 transition-colors flex flex-col justify-between" style="transition-delay: 0.1s;">
+                    <span class="text-[11px] text-zinc-500 uppercase tracking-widest font-semibold">Experiences</span>
+                    <h3 class="text-4xl font-bold text-white tracking-tight stats-counter mt-2" data-target="3">0</h3>
                 </div>
-                <div class="reveal border-l border-zinc-800" style="transition-delay: 0.2s;">
-                    <h3 class="text-lg font-bold text-white tracking-tight">AWS • K8s</h3>
-                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Core Stack</p>
+                <!-- Core Stack -->
+                <div class="reveal bento-span-2 glass-panel rounded-xl p-6 border border-zinc-800 hover:border-cyan-500/30 transition-colors flex flex-col justify-between" style="transition-delay: 0.2s;">
+                    <span class="text-[11px] text-zinc-500 uppercase tracking-widest font-semibold">Core Stack</span>
+                    <div class="flex gap-4 mt-3 text-lg font-bold text-white">
+                        <span class="flex items-center gap-2"><i class="fab fa-aws text-yellow-500"></i> AWS</span>
+                        <span class="text-zinc-700">•</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-dharmachakra text-blue-500"></i> K8s</span>
+                        <span class="text-zinc-700">•</span>
+                        <span class="flex items-center gap-2"><i class="fab fa-docker text-cyan-400"></i> Docker</span>
+                    </div>
                 </div>
-                <div class="reveal border-l border-zinc-800" style="transition-delay: 0.3s;">
-                    <h3 class="text-lg font-bold text-white tracking-tight">CI/CD • Monitoring</h3>
-                    <p class="text-[11px] text-zinc-500 uppercase tracking-widest mt-1 font-semibold">Systems</p>
+                <!-- Systems -->
+                <div class="reveal bento-span-2 glass-panel rounded-xl p-6 border border-zinc-800 hover:border-indigo-500/30 transition-colors flex flex-col justify-between" style="transition-delay: 0.3s;">
+                    <span class="text-[11px] text-zinc-500 uppercase tracking-widest font-semibold">Automation & Monitoring</span>
+                    <div class="flex gap-4 mt-3 text-lg font-bold text-white">
+                        <span class="flex items-center gap-2"><i class="fas fa-cogs text-indigo-500"></i> CI/CD</span>
+                        <span class="text-zinc-700">•</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-chart-line text-rose-500"></i> Grafana</span>
+                        <span class="text-zinc-700">•</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-cubes text-purple-500"></i> Terraform</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -459,41 +514,44 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="tilt-card reveal-scale glass-panel rounded-xl p-8 border border-zinc-800" style="transition-delay: 0s;">
+                    <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-emerald-500/30 transition-colors group relative overflow-hidden" data-tilt style="transition-delay: 0s;">
+                        <div class="absolute top-0 left-0 w-full h-0.5 bg-emerald-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                         <div class="flex items-center gap-3 mb-6">
                             <i class="fas fa-cloud text-2xl text-cyan-500"></i>
                             <h3 class="text-xl font-bold text-white">Cloud & DevOps</h3>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">AWS</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Docker</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Kubernetes</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Terraform</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Ansible</span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">AWS <span class="skill-bar" style="width: 90%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Docker <span class="skill-bar" style="width: 85%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Kubernetes <span class="skill-bar" style="width: 80%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Terraform <span class="skill-bar" style="width: 85%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Ansible <span class="skill-bar" style="width: 75%"></span></span>
                         </div>
                     </div>
 
-                    <div class="tilt-card reveal-scale glass-panel rounded-xl p-8 border border-zinc-800" style="transition-delay: 0.1s;">
+                    <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-indigo-500/30 transition-colors group relative overflow-hidden" data-tilt style="transition-delay: 0.1s;">
+                        <div class="absolute top-0 left-0 w-full h-0.5 bg-indigo-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                         <div class="flex items-center gap-3 mb-6">
                             <i class="fas fa-cogs text-2xl text-indigo-500"></i>
                             <h3 class="text-xl font-bold text-white">CI/CD & Automation</h3>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Jenkins</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">GitHub Actions</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">GitLab CI</span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Jenkins <span class="skill-bar" style="width: 80%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">GitHub Actions <span class="skill-bar" style="width: 90%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">GitLab CI <span class="skill-bar" style="width: 75%"></span></span>
                         </div>
                     </div>
 
-                    <div class="tilt-card reveal-scale glass-panel rounded-xl p-8 border border-zinc-800" style="transition-delay: 0.2s;">
+                    <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-rose-500/30 transition-colors group relative overflow-hidden" data-tilt style="transition-delay: 0.2s;">
+                        <div class="absolute top-0 left-0 w-full h-0.5 bg-rose-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
                         <div class="flex items-center gap-3 mb-6">
                             <i class="fas fa-chart-line text-2xl text-rose-500"></i>
                             <h3 class="text-xl font-bold text-white">Monitoring</h3>
                         </div>
                         <div class="flex flex-wrap gap-2">
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Prometheus</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Grafana</span>
-                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">CloudWatch</span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Prometheus <span class="skill-bar" style="width: 85%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">Grafana <span class="skill-bar" style="width: 80%"></span></span>
+                            <span class="skill-tag px-3 py-1 text-xs bg-zinc-900 border border-zinc-800 rounded-full text-zinc-300">CloudWatch <span class="skill-bar" style="width: 85%"></span></span>
                         </div>
                     </div>
                 </div>
@@ -511,9 +569,9 @@
                 <div class="space-y-24">
                     <!-- Project 1 -->
                     <div class="grid md:grid-cols-12 gap-8 items-center">
-                        <div class="reveal-left md:col-span-7 relative group">
+                        <div class="reveal-left md:col-span-7 relative group tilt-card" data-tilt>
                             <div class="absolute inset-0 bg-emerald-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <div class="relative rounded-xl overflow-hidden border border-zinc-800 shadow-2xl">
+                            <div class="relative rounded-xl overflow-hidden border border-zinc-800 shadow-2xl group-hover:border-emerald-500/30 transition-colors project-shine">
                                 <div class="absolute top-3 left-3 z-10 bg-black/50 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-mono text-emerald-400 border border-emerald-500/20">LIVE ARCHITECTURE</div>
                                 <img src="images/project-cicd.webp" class="w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="CI/CD Architecture">
                             </div>
@@ -521,12 +579,8 @@
                         <div class="reveal-right md:col-span-5 space-y-4">
                             <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold border border-emerald-500/20">FEATURED PROJECT</span>
                             <h3 class="text-3xl font-bold text-white tracking-tight">CI/CD Pipeline Automation (Flask + Kubernetes + AWS)</h3>
-                            <p class="text-zinc-400 leading-relaxed text-sm">
-                                End-to-end pipeline automating build, test, and deployment phases. Designed for high availability and speed on AWS infrastructure.
-                            </p>
-                            <div class="text-xs font-mono text-zinc-500 bg-zinc-900 p-2 rounded border border-zinc-800">
-                                Pipeline: Git → Jenkins → Docker → Kubernetes → AWS → Monitoring
-                            </div>
+                            <p class="text-zinc-400 leading-relaxed text-sm">End-to-end pipeline automating build, test, and deployment phases. Designed for high availability and speed on AWS infrastructure.</p>
+                            <div class="text-xs font-mono text-zinc-500 bg-zinc-900 p-2 rounded border border-zinc-800">Pipeline: Git → Jenkins → Docker → Kubernetes → AWS → Monitoring</div>
                             <div class="space-y-3 text-sm pt-2">
                                 <div class="flex gap-3 border-l-2 border-zinc-700 pl-3 hover:border-emerald-500 transition-colors">
                                     <span class="text-emerald-500 font-mono text-xs mt-0.5">01</span>
@@ -542,9 +596,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-4 pt-4">
-                                <a href="https://github.com/shreyasneelaraddi/cicd-pipeline" target="_blank" class="text-sm font-medium text-white flex items-center gap-2 hover:text-emerald-500 transition-colors">
-                                    <i class="fab fa-github"></i> View Code
-                                </a>
+                                <a href="https://github.com/shreyasneelaraddi/cicd-pipeline" target="_blank" class="text-sm font-medium text-white flex items-center gap-2 hover:text-emerald-500 transition-colors"><i class="fab fa-github"></i> View Code</a>
                             </div>
                         </div>
                     </div>
@@ -554,12 +606,8 @@
                         <div class="reveal-left md:col-span-5 space-y-4 md:order-1">
                             <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-500 text-xs font-bold border border-cyan-500/20">AI INTEGRATION</span>
                             <h3 class="text-3xl font-bold text-white tracking-tight">AI Resume Assistant (OpenAI + LangChain)</h3>
-                            <p class="text-zinc-400 leading-relaxed text-sm">
-                                GenAI-powered system for context-aware candidate screening using vector search and LLMs.
-                            </p>
-                            <div class="text-xs font-mono text-zinc-500 bg-zinc-900 p-2 rounded border border-zinc-800">
-                                Flow: Resume → LangChain → Vector DB → OpenAI → Analysis
-                            </div>
+                            <p class="text-zinc-400 leading-relaxed text-sm">GenAI-powered system for context-aware candidate screening using vector search and LLMs.</p>
+                            <div class="text-xs font-mono text-zinc-500 bg-zinc-900 p-2 rounded border border-zinc-800">Flow: Resume → LangChain → Vector DB → OpenAI → Analysis</div>
                             <div class="space-y-3 text-sm pt-2">
                                 <div class="flex gap-3 border-l-2 border-zinc-700 pl-3">
                                     <span class="text-cyan-500 font-mono text-xs mt-0.5">01</span>
@@ -571,14 +619,12 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-4 pt-4">
-                                <a href="https://github.com/shreyasneelaraddi/ai-resume-screening" target="_blank" class="text-sm font-medium text-white flex items-center gap-2 hover:text-emerald-500 transition-colors">
-                                    <i class="fab fa-github"></i> View Code
-                                </a>
+                                <a href="https://github.com/shreyasneelaraddi/ai-resume-screening" target="_blank" class="text-sm font-medium text-white flex items-center gap-2 hover:text-emerald-500 transition-colors"><i class="fab fa-github"></i> View Code</a>
                             </div>
                         </div>
-                        <div class="reveal-right md:col-span-7 md:order-2 relative group">
+                        <div class="reveal-right md:col-span-7 md:order-2 relative group tilt-card" data-tilt>
                             <div class="absolute inset-0 bg-cyan-500/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <div class="relative rounded-xl overflow-hidden border border-zinc-800 shadow-2xl">
+                            <div class="relative rounded-xl overflow-hidden border border-zinc-800 shadow-2xl group-hover:border-cyan-500/30 transition-colors project-shine">
                                 <img src="images/project-resume-ai.webp" class="w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="AI Resume Project">
                             </div>
                         </div>
@@ -586,7 +632,7 @@
 
                     <!-- Projects Grid -->
                     <div class="grid md:grid-cols-2 gap-8 pt-8">
-                        <div class="tilt-card reveal-scale glass-panel rounded-xl overflow-hidden group" style="transition-delay: 0s;">
+                        <div class="tilt-card reveal glass-panel rounded-xl overflow-hidden group border border-zinc-800 hover:border-zinc-700 transition-colors project-shine" data-tilt style="transition-delay: 0s;">
                             <div class="relative h-56 overflow-hidden">
                                 <img src="images/project-sales-analytics.webp" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80" alt="Sales Analytics">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
@@ -601,7 +647,7 @@
                             </div>
                         </div>
 
-                        <div class="tilt-card reveal-scale glass-panel rounded-xl overflow-hidden group" style="transition-delay: 0.1s;">
+                        <div class="tilt-card reveal glass-panel rounded-xl overflow-hidden group border border-zinc-800 hover:border-zinc-700 transition-colors project-shine" data-tilt style="transition-delay: 0.1s;">
                             <div class="relative h-56 overflow-hidden">
                                 <img src="images/project-healthcare.webp" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80" alt="Healthcare Prediction">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
@@ -640,37 +686,27 @@
 
                     <div class="grid grid-cols-2 md:grid-cols-5 gap-6 relative z-10">
                         <div class="flex flex-col items-center text-center group">
-                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-orange-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                                <i class="fab fa-git-alt"></i>
-                            </div>
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-orange-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]"><i class="fab fa-git-alt"></i></div>
                             <span class="font-semibold text-sm text-white">Source</span>
                             <span class="text-[10px] text-zinc-600 font-mono">Git Repository</span>
                         </div>
                         <div class="flex flex-col items-center text-center group">
-                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-blue-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                                <i class="fas fa-cogs"></i>
-                            </div>
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-blue-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]"><i class="fas fa-cogs"></i></div>
                             <span class="font-semibold text-sm text-white">Build</span>
                             <span class="text-[10px] text-zinc-600 font-mono">Jenkins CI</span>
                         </div>
                         <div class="flex flex-col items-center text-center group">
-                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-cyan-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                                <i class="fab fa-docker"></i>
-                            </div>
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-cyan-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]"><i class="fab fa-docker"></i></div>
                             <span class="font-semibold text-sm text-white">Package</span>
                             <span class="text-[10px] text-zinc-600 font-mono">Docker Image</span>
                         </div>
                         <div class="flex flex-col items-center text-center group">
-                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-indigo-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                                <i class="fas fa-dharmachakra"></i>
-                            </div>
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-indigo-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]"><i class="fas fa-dharmachakra"></i></div>
                             <span class="font-semibold text-sm text-white">Deploy</span>
                             <span class="text-[10px] text-zinc-600 font-mono">Kubernetes</span>
                         </div>
                         <div class="flex flex-col items-center text-center group">
-                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-yellow-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                                <i class="fab fa-aws"></i>
-                            </div>
+                            <div class="w-16 h-16 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-center text-2xl text-yellow-500 mb-3 group-hover:border-emerald-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]"><i class="fab fa-aws"></i></div>
                             <span class="font-semibold text-sm text-white">Production</span>
                             <span class="text-[10px] text-zinc-600 font-mono">AWS Cloud</span>
                         </div>
@@ -691,9 +727,7 @@
                     <div class="mindset-card emerald reveal group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/30 transition-all duration-300" style="transition-delay: 0s;">
                         <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
-                                <i class="fas fa-magic text-xl"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0"><i class="fas fa-magic text-xl"></i></div>
                             <div>
                                 <h3 class="text-xl font-bold text-white mb-2">Automate Everything</h3>
                                 <p class="text-zinc-400 text-sm leading-relaxed">If it can be scripted, it should be scripted. Eliminating toil increases velocity and reliability.</p>
@@ -704,9 +738,7 @@
                     <div class="mindset-card cyan reveal group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-cyan-500/30 transition-all duration-300" style="transition-delay: 0.1s;">
                         <div class="absolute top-0 left-0 w-2 h-full bg-cyan-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0">
-                                <i class="fas fa-code text-xl"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0"><i class="fas fa-code text-xl"></i></div>
                             <div>
                                 <h3 class="text-xl font-bold text-white mb-2">Infrastructure as Code</h3>
                                 <p class="text-zinc-400 text-sm leading-relaxed">Managing infrastructure through version control ensures consistency, audit trails, and rapid recovery.</p>
@@ -717,9 +749,7 @@
                     <div class="mindset-card indigo reveal group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-indigo-500/30 transition-all duration-300" style="transition-delay: 0.2s;">
                         <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0">
-                                <i class="fas fa-eye text-xl"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-500 shrink-0"><i class="fas fa-eye text-xl"></i></div>
                             <div>
                                 <h3 class="text-xl font-bold text-white mb-2">Observability First</h3>
                                 <p class="text-zinc-400 text-sm leading-relaxed">You can't fix what you can't see. Monitoring and logging are foundational layers, not afterthoughts.</p>
@@ -730,9 +760,7 @@
                     <div class="mindset-card rose reveal group relative overflow-hidden rounded-xl p-8 border border-zinc-800 bg-zinc-900/50 hover:border-rose-500/30 transition-all duration-300" style="transition-delay: 0.3s;">
                         <div class="absolute top-0 left-0 w-2 h-full bg-rose-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-500 shrink-0">
-                                <i class="fas fa-shield-alt text-xl"></i>
-                            </div>
+                            <div class="w-12 h-12 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-500 shrink-0"><i class="fas fa-shield-alt text-xl"></i></div>
                             <div>
                                 <h3 class="text-xl font-bold text-white mb-2">Resilience Engineering</h3>
                                 <p class="text-zinc-400 text-sm leading-relaxed">Designing systems that anticipate failure and recover gracefully is the cornerstone of reliability.</p>
@@ -744,98 +772,105 @@
         </section>
 
         <!-- EXPERIENCE -->
-        <section id="experience" class="py-24 scroll-mt-20">
+        <section id="experience" class="py-24 scroll-mt-20 relative">
             <div class="max-w-5xl mx-auto px-6">
                 <div class="mb-16">
                     <p class="reveal text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Career</p>
                     <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight" style="transition-delay: 0.1s;">Experience</h2>
                 </div>
 
-                <div class="space-y-8">
-                    <!-- SmartBridge - Current Role (with company logo) -->
-                    <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-white/20 transition-colors group relative overflow-hidden" style="transition-delay: 0s;">
-                        <div class="absolute top-0 left-0 w-2 h-full bg-white transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <img src="images/Logo.webp" alt="SmartBridge" class="company-logo">
-                                <h3 class="text-xl font-bold text-white">Associate Software Engineer</h3>
+                <div class="space-y-12 relative">
+                    <div class="timeline-line"></div>
+
+                    <!-- SmartBridge -->
+                    <div class="relative pl-12 md:pl-0">
+                        <div class="timeline-dot"></div>
+                        <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-white/20 transition-colors group relative overflow-hidden md:w-[calc(50%-2rem)] md:ml-auto" data-tilt style="transition-delay: 0s;">
+                            <div class="absolute top-0 left-0 w-2 h-full bg-white transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="images/Logo.webp" alt="SmartBridge" class="company-logo">
+                                    <h3 class="text-xl font-bold text-white">Associate Software Engineer</h3>
+                                </div>
+                                <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono flex items-center gap-1.5">
+                                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                                    APR 2026 – PRESENT
+                                </span>
                             </div>
-                            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono flex items-center gap-1.5">
-                                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
-                                APR 2026 – PRESENT
-                            </span>
+                            <p class="text-zinc-500 text-sm mb-4 font-medium">SmartBridge Educational Services Pvt. Ltd. · Hyderabad, Telangana</p>
+                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Building & deploying production-grade software solutions.</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Working with cloud infrastructure & DevOps workflows.</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Collaborating with cross-functional engineering teams.</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Applying CI/CD, containerization & automation practices.</li>
+                            </ul>
                         </div>
-                        <p class="text-zinc-500 text-sm mb-4 font-medium">SmartBridge Educational Services Pvt. Ltd. · Hyderabad, Telangana</p>
-                        <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Building & deploying production-grade software solutions.</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Working with cloud infrastructure & DevOps workflows.</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Collaborating with cross-functional engineering teams.</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-white mt-1"></i> Applying CI/CD, containerization & automation practices.</li>
-                        </ul>
                     </div>
 
                     <!-- VTU WIINNR -->
-                    <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-emerald-500/20 transition-colors group relative overflow-hidden" style="transition-delay: 0.1s;">
-                        <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500">
-                                    <i class="fas fa-brain"></i>
+                    <div class="relative pl-12 md:pl-0">
+                        <div class="timeline-dot"></div>
+                        <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-emerald-500/20 transition-colors group relative overflow-hidden md:w-[calc(50%-2rem)]" data-tilt style="transition-delay: 0.1s;">
+                            <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500"><i class="fas fa-brain"></i></div>
+                                    <h3 class="text-xl font-bold text-white">AI/ML Intern</h3>
                                 </div>
-                                <h3 class="text-xl font-bold text-white">AI/ML Intern</h3>
+                                <span class="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono">OCT 2024 – FEB 2025</span>
                             </div>
-                            <span class="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono">OCT 2024 – FEB 2025</span>
+                            <p class="text-zinc-500 text-sm mb-4 font-medium">VTU WIINNR (IT Ignition Program)</p>
+                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Built ML pipelines (Python, GitHub Actions).</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Docker deployment on AWS EC2.</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> IaC using Terraform & Ansible.</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Monitoring with Prometheus & Grafana.</li>
+                            </ul>
                         </div>
-                        <p class="text-zinc-500 text-sm mb-4 font-medium">VTU WIINNR (IT Ignition Program)</p>
-                        <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Built ML pipelines (Python, GitHub Actions).</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Docker deployment on AWS EC2.</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> IaC using Terraform & Ansible.</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> Monitoring with Prometheus & Grafana.</li>
-                        </ul>
                     </div>
 
                     <!-- Agnirva -->
-                    <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-cyan-500/20 transition-colors group relative overflow-hidden" style="transition-delay: 0.2s;">
-                        <div class="absolute top-0 left-0 w-2 h-full bg-cyan-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500">
-                                    <i class="fas fa-robot"></i>
+                    <div class="relative pl-12 md:pl-0">
+                        <div class="timeline-dot"></div>
+                        <div class="tilt-card reveal glass-panel rounded-xl p-8 border border-zinc-800 hover:border-cyan-500/20 transition-colors group relative overflow-hidden md:w-[calc(50%-2rem)] md:ml-auto" data-tilt style="transition-delay: 0.2s;">
+                            <div class="absolute top-0 left-0 w-2 h-full bg-cyan-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500"><i class="fas fa-robot"></i></div>
+                                    <h3 class="text-xl font-bold text-white">AI Intern</h3>
                                 </div>
-                                <h3 class="text-xl font-bold text-white">AI Intern</h3>
+                                <span class="text-xs font-bold text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono">OCT 2025 – DEC 2025</span>
                             </div>
-                            <span class="text-xs font-bold text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full mt-2 md:mt-0 font-mono">OCT 2025 – DEC 2025</span>
+                            <p class="text-zinc-500 text-sm mb-4 font-medium">Agnirva (Fast Track Program)</p>
+                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-cyan-500 mt-1"></i> Optimized LLM prompt workflows.</li>
+                                <li class="flex items-start gap-2"><i class="fas fa-check text-cyan-500 mt-1"></i> Built RAG capstone project.</li>
+                            </ul>
                         </div>
-                        <p class="text-zinc-500 text-sm mb-4 font-medium">Agnirva (Fast Track Program)</p>
-                        <ul class="grid md:grid-cols-2 gap-3 text-sm text-zinc-300">
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-cyan-500 mt-1"></i> Optimized LLM prompt workflows.</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-cyan-500 mt-1"></i> Built RAG capstone project.</li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- CERTIFICATIONS -->
-        <section class="py-24 bg-zinc-950/50">
+        <section class="py-24 bg-zinc-950/50 border-y border-zinc-800">
             <div class="max-w-5xl mx-auto px-6">
                 <div class="mb-16 text-center">
                     <p class="reveal text-emerald-500 font-semibold text-sm uppercase tracking-widest mb-2 font-mono">// Credentials</p>
                     <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight" style="transition-delay: 0.1s;">Certifications</h2>
                 </div>
                 <div class="grid md:grid-cols-3 gap-6">
-                    <div class="reveal-scale glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors" style="transition-delay: 0s;">
+                    <div class="tilt-card reveal glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors" data-tilt style="transition-delay: 0s;">
                         <i class="fas fa-certificate text-3xl text-blue-400 mb-4"></i>
                         <h3 class="font-bold text-white mb-1">Introduction to DevOps</h3>
                         <p class="text-zinc-500 text-sm">IBM (Coursera)</p>
                     </div>
-                    <div class="reveal-scale glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors" style="transition-delay: 0.1s;">
+                    <div class="tilt-card reveal glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors" data-tilt style="transition-delay: 0.1s;">
                         <i class="fas fa-certificate text-3xl text-emerald-400 mb-4"></i>
                         <h3 class="font-bold text-white mb-1">DataCamp Certifications</h3>
                         <p class="text-zinc-500 text-sm">AWS Cloud • Security • Python • SQL</p>
                     </div>
-                    <div class="reveal-scale glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors" style="transition-delay: 0.2s;">
+                    <div class="tilt-card reveal glass-panel rounded-lg p-6 border border-zinc-800 hover:border-zinc-700 transition-colors" data-tilt style="transition-delay: 0.2s;">
                         <i class="fas fa-award text-3xl text-yellow-400 mb-4"></i>
                         <h3 class="font-bold text-white mb-1">AI/ML Internship Certificate</h3>
                         <p class="text-zinc-500 text-sm">VTU WIINNR</p>
@@ -854,8 +889,8 @@
                 </div>
 
                 <div class="reveal" style="transition-delay: 0.3s;">
-                    <a href="mailto:shreyas2932003@gmail.com" class="inline-flex items-center gap-3 px-10 py-5 rounded-lg bg-white text-black font-bold hover:bg-zinc-100 transition-all shadow-2xl shadow-white/10 text-lg">
-                        <i class="fas fa-paper-plane"></i> Send Email
+                    <a href="mailto:shreyas2932003@gmail.com" class="magnetic-btn inline-flex items-center gap-3 px-10 py-5 rounded-lg bg-white text-black font-bold hover:bg-zinc-100 transition-all shadow-2xl shadow-white/10 text-lg">
+                        <span class="magnetic-btn-inner flex items-center gap-3"><i class="fas fa-paper-plane"></i> Send Email</span>
                     </a>
                 </div>
 
@@ -866,15 +901,9 @@
                 </div>
 
                 <div class="reveal flex items-center justify-center gap-4 mt-6" style="transition-delay: 0.45s;">
-                    <a href="https://www.linkedin.com/in/shreyas-n2003-cloud-devops" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all">
-                        <i class="fab fa-linkedin-in text-lg"></i>
-                    </a>
-                    <a href="https://github.com/shreyasneelaraddi" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all">
-                        <i class="fab fa-github text-lg"></i>
-                    </a>
-                    <a href="mailto:shreyas2932003@gmail.com" class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all">
-                        <i class="fas fa-envelope text-lg"></i>
-                    </a>
+                    <a href="https://www.linkedin.com/in/shreyas-n2003-cloud-devops" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all"><i class="fab fa-linkedin-in text-lg"></i></a>
+                    <a href="https://github.com/shreyasneelaraddi" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all"><i class="fab fa-github text-lg"></i></a>
+                    <a href="mailto:shreyas2932003@gmail.com" class="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all"><i class="fas fa-envelope text-lg"></i></a>
                 </div>
 
                 <p class="reveal text-zinc-600 text-xs mt-6 font-mono" style="transition-delay: 0.5s;">
@@ -889,77 +918,111 @@
     <footer class="relative py-16 border-t border-zinc-800">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex items-center gap-4">
-                <a href="mailto:shreyas2932003@gmail.com" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/shreyas-n2003-cloud-devops" target="_blank" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://github.com/shreyasneelaraddi" target="_blank" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all">
-                    <i class="fab fa-github"></i>
-                </a>
+                <a href="mailto:shreyas2932003@gmail.com" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/shreyas-n2003-cloud-devops" target="_blank" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/shreyasneelaraddi" target="_blank" class="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-emerald-500 transition-all"><i class="fab fa-github"></i></a>
             </div>
-            <p class="text-zinc-600 text-xs font-mono tracking-widest">
-                © 2026 SHREYAS NEELARADDI // ALL SYSTEMS OPERATIONAL
-            </p>
+            <p class="text-zinc-600 text-xs font-mono tracking-widest">© 2026 SHREYAS NEELARADDI // ALL SYSTEMS OPERATIONAL</p>
         </div>
     </footer>
 
-    <!-- Back to Top -->
-    <button id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up text-sm"></i>
-    </button>
+    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up text-sm"></i></button>
 
     <script>
-        // --- Preloader (instant) ---
+        // --- Preloader ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('preloader');
             loader.style.opacity = '0';
             setTimeout(() => { loader.style.display = 'none'; }, 300);
         });
 
-        // --- Typing Animation ---
-        (function() {
-            const phrases = [
-                'Ready to deploy.',
-                'kubectl apply -f prod.yaml',
-                'docker build -t app:latest .',
-                'terraform plan -out=infra.tfplan',
-                'helm upgrade --install myapp ./chart'
-            ];
-            const output = document.getElementById('typing-output');
-            let phraseIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-            let speed = 60;
+        // --- Custom Cursor Glow ---
+        const cursorGlow = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
 
+        // --- 3D Tilt Effect for Cards ---
+        const tiltCards = document.querySelectorAll('[data-tilt]');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / centerY * -3;
+                const rotateY = (x - centerX) / centerX * 3;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        });
+
+        // --- Magnetic Buttons ---
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        magneticBtns.forEach(btn => {
+            const inner = btn.querySelector('.magnetic-btn-inner');
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                inner.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                inner.style.transform = `translate(0px, 0px)`;
+            });
+        });
+
+        // --- Hero Parallax Orbs ---
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            const orb1 = document.getElementById('orb1');
+            const orb2 = document.getElementById('orb2');
+            if (orb1) orb1.style.transform = `translate(${x * 30}px, ${y * 20}px)`;
+            if (orb2) orb2.style.transform = `translate(${x * -20}px, ${y * -30}px)`;
+        });
+
+        // --- Typing Animation (Hero) ---
+        (function() {
+            const phrases = ['Cloud & DevOps Engineer', 'AWS Infrastructure Architect', 'Kubernetes & Docker Specialist', 'CI/CD Pipeline Builder'];
+            const output = document.getElementById('typing-hero');
+            let phraseIndex = 0, charIndex = 0, isDeleting = false, speed = 60;
             function type() {
                 const current = phrases[phraseIndex];
-                
+                output.textContent = current.substring(0, charIndex + 1);
                 if (!isDeleting) {
-                    output.textContent = current.substring(0, charIndex + 1);
-                    charIndex++;
-                    speed = 50 + Math.random() * 40;
-
-                    if (charIndex === current.length) {
-                        isDeleting = true;
-                        speed = 2000;
-                    }
+                    charIndex++; speed = 50 + Math.random() * 40;
+                    if (charIndex === current.length) { isDeleting = true; speed = 2000; }
                 } else {
-                    output.textContent = current.substring(0, charIndex - 1);
-                    charIndex--;
-                    speed = 30;
-
-                    if (charIndex === 0) {
-                        isDeleting = false;
-                        phraseIndex = (phraseIndex + 1) % phrases.length;
-                        speed = 400;
-                    }
+                    charIndex--; speed = 30;
+                    if (charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; speed = 400; }
                 }
-
                 setTimeout(type, speed);
             }
+            setTimeout(type, 1000);
+        })();
 
+        // --- Typing Animation (Terminal) ---
+        (function() {
+            const phrases = ['kubectl apply -f prod.yaml', 'docker build -t app:latest .', 'terraform plan -out=infra.tfplan', 'helm upgrade --install myapp ./chart'];
+            const output = document.getElementById('typing-output');
+            let phraseIndex = 0, charIndex = 0, isDeleting = false, speed = 60;
+            function type() {
+                const current = phrases[phraseIndex];
+                output.textContent = current.substring(0, charIndex + 1);
+                if (!isDeleting) {
+                    charIndex++; speed = 50 + Math.random() * 40;
+                    if (charIndex === current.length) { isDeleting = true; speed = 2000; }
+                } else {
+                    charIndex--; speed = 30;
+                    if (charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; speed = 400; }
+                }
+                setTimeout(type, speed);
+            }
             setTimeout(type, 1500);
         })();
 
@@ -967,119 +1030,63 @@
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         let isOpen = false;
-
         function toggleMenu(state) {
             isOpen = state !== undefined ? state : !isOpen;
             mobileMenu.style.display = isOpen ? 'flex' : 'none';
             menuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         }
-
         menuBtn.addEventListener('click', () => toggleMenu());
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => toggleMenu(false));
-        });
-
-        mobileMenu.addEventListener('click', (e) => {
-            if (e.target === mobileMenu) toggleMenu(false);
-        });
+        document.querySelectorAll('.mobile-link').forEach(link => { link.addEventListener('click', () => toggleMenu(false)); });
+        mobileMenu.addEventListener('click', (e) => { if (e.target === mobileMenu) toggleMenu(false); });
 
         // --- Scroll Progress Bar ---
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("scroll-progress").style.width = scrolled + "%";
-        });
-
-        // --- Hero Parallax Orbs ---
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 2;
-            const y = (e.clientY / window.innerHeight - 0.5) * 2;
-            
-            const orb1 = document.getElementById('orb1');
-            const orb2 = document.getElementById('orb2');
-            if (orb1) orb1.style.transform = `translate(${x * 30}px, ${y * 20}px)`;
-            if (orb2) orb2.style.transform = `translate(${x * -20}px, ${y * -30}px)`;
+            document.getElementById("scroll-progress").style.width = (winScroll / height) * 100 + "%";
         });
 
         // --- Intersection Observer (Reveal System) ---
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    revealObserver.unobserve(entry.target);
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
-            revealObserver.observe(el);
-        });
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => { revealObserver.observe(el); });
 
         // --- Stats Counter ---
         const counters = document.querySelectorAll('.stats-counter');
         const easeOutQuad = t => t * (2 - t);
-        
         const counterObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = +entry.target.getAttribute('data-target');
-                    const duration = 2000;
-                    const start = performance.now();
-                    
+                    const duration = 2000; const start = performance.now();
                     const animate = (currentTime) => {
-                        const elapsed = currentTime - start;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const easedProgress = easeOutQuad(progress);
-                        
-                        entry.target.innerText = Math.floor(easedProgress * target) + '+';
-                        
-                        if (progress < 1) {
-                            requestAnimationFrame(animate);
-                        }
+                        const elapsed = currentTime - start; const progress = Math.min(elapsed / duration, 1);
+                        entry.target.innerText = Math.floor(easeOutQuad(progress) * target) + '+';
+                        if (progress < 1) requestAnimationFrame(animate);
                     };
-                    requestAnimationFrame(animate);
-                    observer.unobserve(entry.target);
+                    requestAnimationFrame(animate); observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
-
         counters.forEach(counter => counterObserver.observe(counter));
 
-        // --- Back to Top ---
+        // --- Back to Top & Active Nav ---
         const backToTop = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 600) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // --- Active Nav Link ---
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
-
         window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) backToTop.classList.add('visible'); else backToTop.classList.remove('visible');
             let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 120;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
+            sections.forEach(section => { if (window.scrollY >= section.offsetTop - 120) current = section.getAttribute('id'); });
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
             });
         });
+        backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     </script>
 </body>
 </html>
